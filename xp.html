@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Smart Credit</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/001-discount.svg" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    
+   <!-- ======= Header ======= -->
+   <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="index.html">SmartCredit<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#featured-services">Servicios</a></li>
+          <li><a class="nav-link scrollto" href="#portfolio">Productos</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Testimonios</a></li>
+          <li><a class="nav-link scrollto" href="#faq">Preguntas</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+    <!-- Page Content-->
+    <div class="container">
+        <!-- Jumbotron Header-->
+        <header class="jumbotron my-4">
+            <h1 class="display-3">Experiencia</h1>
+            <p class="lead">Disfrutá de las mejores experiencias con un SmartCredit.</p>
+
+        </header>
+        <!-- Page Features-->
+        <div class="row text-center">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/salta.jpg" alt="..." data-toggle="popover"
+                        data-trigger="hover" />
+                    <div class="card-body">
+                        <h4 class="card-title">Experiencia1</h4>
+                        <p class="card-text">Cerro siete colores Salta 7.000$.-</p>
+                        <input type="radio" id="radio1" name="radio" value="Experiencia1">
+                        <label for="radio1">Experiencia1</label><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/corrientes.jpg" alt="..." />
+                    <div class="card-body">
+                        <h4 class="card-title">Experiencia2</h4>
+                        <p class="card-text">Estadia playas de Ituzaingó en Corrientes 5.000$.-</p>
+                        <input type="radio" id="radio2" name="radio" value="Experiencia2">
+                        <label for="radio2">Experiencia2</label><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/chalten.JPG" alt="..." />
+                    <div class="card-body">
+                        <h4 class="card-title">Experiencia3</h4>
+                        <p class="card-text">Caminata guiada Chalten $4.000 .-</p>
+                        <input type="radio" id="radio3" name="radio" value="Experiencia3">
+                        <label for="radio3">Experiencia3</label><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button type="button" class="btn btn-primary " onclick="inputData()">Solicitar Crédito</button>
+        <!-- Formulario-->
+        <div id="inputForm" class="container jumbotron my-4" style="display:none;">
+            <div class="row">
+                <form action="" method="post">
+                    <label for="solicitud">Solitamos algunos datos para conocerte</label>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" name="nombre" label="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input id="apellido" type="text" name="apellido" label="Apellido">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input id="telefono" type="number" name="telefono" label="Telefono">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input id="direccion" type="number" name="direccion" label="Direccion">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" label="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNac">Fecha de Nacimiento</label>
+                        <input id="fechaNac" type="fechaNac" name="fechaNac" label="fechaNac">
+                    </div>
+                    <div class="form-group">
+                        <label for="situaciontributaria">Situación Tributaria</label>
+                        <select id="situaciontributaria" name="situacionTributaria"
+                            class="form-control-sm form-control ">
+                            <option>Elige ‣</option>
+                            <option>Empleado</option>
+                            <option>Autonomo</option>
+                            <option>Monotributista</option>
+                            <option>Freelance</option>
+                        </select>
+                        <small id="situaciontributariaHelp" class="form-text text-muted">Luego solicitaremos evidencias
+                            que respalden los ingresos</small>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="ingresosmensuales">Ingresos Mensuales</label>
+                        <input id="ingresosmensuales" type="number" name="ingresosMensuales">
+                    </div>
+                    <div class="form-group">
+                        <label for="antiguedad">Antigüedad</label>
+                        <input id="antiguedad" type="number" name="ahorros">
+                    </div>
+                    <div class="form-group">
+                        <label for="estadocivil">Estado civil</label>
+                        <select id="estadocivil" name="estadoCivil" class="form-control-sm form-control">
+                            <option>Elige ‣</option>
+                            <option>Soltero</option>
+                            <option>Casado</option>
+                        </select>
+                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
+                            respalde el estado civil</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="tarjetaCredito">Tarjeta de Crédito</label>
+                        <select id="tarjetaCredito" name="tarjetaCredito" class="form-control-sm form-control">
+                            <option>Elige ‣</option>
+                            <option>VISA</option>
+                            <option>MASTERCARD</option>
+                            <option>CABAL</option>
+                            <option>NARANJA</option>
+                            <option>NINGUNA</option>
+                        </select>
+                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
+                            respalde su información</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ingresosMensualesPareja">Ingresos Mensuales Pareja</label>
+                        <input id="ingresosMensualesPareja" type="number" name="ingresosMensualesPareja">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="valorProducto">Valor Producto</label>
+                        <input id="valorProducto" type="number" name="valorProducto">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adjuntaRecibo">Recibo de Sueldo</label>
+                        <input type="file" class="form-control-file" id="adjuntaRecibo">
+                    </div>
+                    <div class="form-group">
+                        <label for="adjuntaDocs">Documentos adicionales</label>
+                        <input type="file" class="form-control-file" id="adjuntaDocs">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                    <small id="help" class="form-text text-muted">Un asesor de nuestro equipo se comunicará para validar
+                        la solicitud y mostrar nuestra propuesta</small>
+                </form>
+            </div>
+        </div>
+        <!--Formulario WebToLead Prueba-->
+        <div id="inputForm" class="container jumbotron my-4" >
+            <div class="row jumbotron my-4">
+                <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
+                    <input type=hidden name="oid" value="00D6g000006uh5n">
+                    <input type=hidden name="retURL" value="http://www.google.com.ar">
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input id="first_name" maxlength="40" name="first_name" size="20" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input id="last_name" maxlength="80" name="last_name" size="20" type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" maxlength="80" name="email" size="20" type="text" /><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company</label><input id="company" maxlength="40" name="company" size="20"
+                            type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label><input id="city" maxlength="40" name="city" size="20"
+                            type="text" /><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State/Province</label><input id="state" maxlength="20" name="state" size="20"
+                            type="text" />
+                    </div>
+                    <div class="form-group">
+                        <label for="salary">Salary:</label> <input id="00N6g00000VAcrH" name="salary" size="20"
+                            type="text" /><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="SalaryOfCouple">SalaryOfCouple:</label><input id="00N6g00000VAcrM" name="SalaryOfCouple"
+                        size="20" type="text" /><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="SmartCreditScoring">SmartCreditScoring:</label><input id="00N6g00000VAcrR"
+                            name="SmartCreditScoring" size="20" type="text" /><br>
+                    </div>
+                    <div class="form-group">
+
+                        <label for="SelectedProduct">SelectedProduct:</label><input id="00N6g00000VAcrW" maxlength="255"
+                            name="SelectedProduct" size="20" type="text" />
+                    </div>
+
+                    <label for="PreApproved">PreApproved:</label>
+                    <input id="00N6g00000VAcrb" name="PreApproved" type="checkbox" value="1" /><br>
+                    <label for="BirthDate">BirthDate:</label><span class="dateInput dateOnlyInput">
+                        <input  id="00N6g00000VAcrg" name="BirthDate" size="12" type="text" /></span>
+                    <label for="DNI">DNI:</label><input id="00N6g00000VAcrl" name="DNI" size="20" type="text" /><br>
+                    <label for="situacionTributaria">situacionTributaria:</label><input id="00N6g00000VAcrv"
+                        maxlength="25" name="situacionTributaria" size="20" type="text" />
+                    <div class="form-group">
+                        <label for="estadoCivil">Estado Civil:</label><input id="00N6g00000VAcs5" maxlength="25"
+                            name="estadoCivil" size="20" type="text" />
+                    </div>
+
+                    <label for="tarjetaDeCredito">Tarjeta De Credito:</label><input id="00N6g00000VAcsA" maxlength="20"
+                        name="tarjetaDeCredito" size="20" type="text" />
+                    <div class="form-group"> 
+                        <label for="valorProducto">Valor Producto:</label><input id="00N6g00000VAcsF" name="valorProducto" size="20"
+                            type="text" />                 
+                         </div>
+                    <div class="form-group">
+                        
+                        <label for="Antiguedad">Antiguedad:</label><input id="00N6g00000VAcsK" name="Antiguedad" size="20"
+                            type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="Address">Address:</label><input id="00N6g00000VAcsU" maxlength="100" name="Address" size="20"
+                            type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="SmartCreditFlag">Smart Credit Flag:</label>
+                        <input id="00N6g00000VAcsZ" name="SmartCreditFlag" type="checkbox" checked value="1"/>
+                    </div>
+
+                    <input type="submit" name="submit" class="btn btn-primary ">
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright © Your Website 2021</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

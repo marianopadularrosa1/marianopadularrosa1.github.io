@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Smart Credit</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/001-discount.svg" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+        <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="index.html">SmartCredit<span>.</span></a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Inicio</a></li>
+          <li><a class="nav-link scrollto" href="#featured-services">Servicios</a></li>
+          <li><a class="nav-link scrollto" href="#portfolio">Productos</a></li>
+          <li><a class="nav-link scrollto" href="#testimonials">Testimonios</a></li>
+          <li><a class="nav-link scrollto" href="#faq">Preguntas</a></li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+    <!-- Page Content-->
+    <div class="container">
+        <!-- Jumbotron Header-->
+        <header class="jumbotron my-4">
+            <h1 class="display-3">Tecnología</h1>
+            <p class="lead"></p>
+        </header>
+        <!--lista de productos-->
+        <!-- Page Features-->
+        <div class="row text-center">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/smartwatch1.jpg" alt="..."
+                        data-toggle="popover" data-trigger="hover" />
+                    <div class="card-body">
+                        <h4 class="card-title">Accesorio1</h4>
+                        <p class="card-text">Smartwatch Xiaomi Mibro Air Reloj Inteligente 7.000$.-</p>
+                        <input type="radio" id="radio1" name="radio" value="accesorio1">
+                        <label for="radio1">Accesorio1</label><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/Parlante2.webp" alt="..." />
+                    <div class="card-body">
+                        <h4 class="card-title">Accesorio2</h4>
+                        <p class="card-text">Parlante Bluetooth JBL 5.000$.-</p>
+                        <input type="radio" id="radio2" name="radio" value="accesorio2">
+                        <label for="radio2">Accesorio2</label><br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img height="250px" class="card-img-top" src="/assets/img/portfolio/auriculares.jpg" alt="..." />
+                    <div class="card-body">
+                        <h4 class="card-title">Accesorio3</h4>
+                        <p class="card-text">Auriculares DAUER $4.234 .-</p>
+                        <input type="radio" id="radio3" name="radio" value="accesorio3">
+                        <label for="radio3">Accesorio3</label><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="inputData()">Solicitar Crédito</button>
+        <!-- Formulario-->
+        <div id="inputForm" class="container jumbotron my-4" style="display:none;">
+            <div class="row">
+                <form action="" method="post">
+                    <label for="solicitud">Solitamos algunos datos para conocerte</label>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" name="nombre" label="Nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input id="apellido" type="text" name="apellido" label="Apellido">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input id="telefono" type="number" name="telefono" label="Telefono">
+    
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input id="direccion" type="number" name="direccion" label="Direccion">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" label="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaNac">Fecha de Nacimiento</label>
+                        <input id="fechaNac" type="fechaNac" name="fechaNac" label="fechaNac">
+                    </div>
+                    <div class="form-group">
+                        <label for="situaciontributaria">Situación Tributaria</label>
+                        <select id="situaciontributaria" name="situacionTributaria" class="form-control-sm form-control ">
+                            <option>Elige ‣</option>
+                            <option>Empleado</option>
+                            <option>Autonomo</option>
+                            <option>Monotributista</option>
+                            <option>Freelance</option>
+                        </select>
+                        <small id="situaciontributariaHelp" class="form-text text-muted">Luego solicitaremos evidencias
+                            que
+                            respalden los ingresos</small>
+    
+                    </div>
+                    <div class="form-group">
+                        <label for="ingresosmensuales">Ingresos Mensuales</label>
+                        <input id="ingresosmensuales" type="number" name="ingresosMensuales">
+                    </div>
+                    <div class="form-group">
+                        <label for="antiguedad">Antigüedad</label>
+                        <input id="antiguedad" type="number" name="ahorros">
+                    </div>
+                    <div class="form-group">
+                        <label for="estadocivil">Estado civil</label>
+                        <select id="estadocivil" name="estadoCivil" class="form-control-sm form-control">
+                            <option>Elige ‣</option>
+                            <option>Soltero</option>
+                            <option>Casado</option>
+                        </select>
+                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
+                            respalde el estado civil</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="tarjetaCredito">Tarjeta de Crédito</label>
+                        <select id="tarjetaCredito" name="tarjetaCredito" class="form-control-sm form-control">
+                            <option>Elige ‣</option>
+                            <option>VISA</option>
+                            <option>MASTERCARD</option>
+                            <option>CABAL</option>
+                            <option>NARANJA</option>
+                            <option>NINGUNA</option>
+                        </select>
+                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
+                            respalde su información</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="ingresosMensualesPareja">Ingresos Mensuales Pareja</label>
+                        <input id="ingresosMensualesPareja" type="number" name="ingresosMensualesPareja">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="valorProducto">Valor Producto</label>
+                        <input id="valorProducto" type="number" name="valorProducto">
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="adjuntaRecibo">Recibo de Sueldo</label>
+                        <input type="file" class="form-control-file" id="adjuntaRecibo">
+                    </div>
+                    <div class="form-group">
+                        <label for="adjuntaDocs">Documentos adicionales</label>
+                        <input type="file" class="form-control-file" id="adjuntaDocs">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                    <small id="help" class="form-text text-muted">Un asesor de nuestro equipo se comunicará para validar
+                        la
+                        solicitud y mostrar nuestra propuesta</small>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright © Your Website 2021</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="/js/scripts.js"></script>
+</body>
+
+</html>
