@@ -152,24 +152,30 @@ function unselect(){
     document.querySelectorAll('[name=radio]').forEach((x) => x.checked=false);
   }
 
+  const mostrarForm=()=>{
+    $("#inputForm").toggle();
+  }
 
 /* Se invoca onclick del boton Solicitar Credito */
 const inputData =()=>{
-    
-    let fechaNacimiento=prompt("Ingrese su Fecha de Nacimiento (DD-MM-AAAA):");
-    let situacionTributaria=prompt("Ingrese su situacion laboral:(empleado,autonomo,monotributista,freelance)");
-    let antiguedad=parseInt(prompt("Ingrese su antigüedad con su empleo(años)"));
-    let ingresosMensuales=parseFloat(prompt("Ingrese sus ingresos mensuales (pesos) aprox:"));
-    let estadoCivil=prompt("Ingrese su estado civil (soltero,casado,otro)");
-    let ingresosMensualesPareja="0";
-    let tarjetaCredito=prompt("Ingrese su tarjeta de crédito (visa/master/otro)");
+    let dni=1;
+    let nombre = (document.getElementById("nombre")||{}).value||"";
+    let apellido =( document.getElementById("apellido")||{}).value||"";
+    let fechaNac = (document.getElementById("fechaNacimiento")||{}).value||"";
+    let situacionTributaria = (document.getElementById("situacionTributaria")||{}).value||"";
+    //let situacionTributaria=prompt("Ingrese su situacion laboral:(empleado,autonomo,monotributista,freelance)");
+    let antiguedad=(document.getElementById("antiguedad")||{}).value||"";
+    let ingresosMensuales=(document.getElementById("ingresosMensuales")||{}).value||"";
+    let estadoCivil=(document.getElementById("estadoCivil")||{}).value||"";
+    let ingresosMensualesPareja=(document.getElementById("ingresosMensualesPareja")||{}).value||"";
+    let tarjetaCredito=(document.getElementById("tarjetaCredito")||{}).value||"";
     
     //esta valor sera obtenido despues que el solicitante elija
-    let valorProducto=parseFloat(prompt("Ingrese el valor del producto que desea solicitar:"));
+    let valorProducto=document.getElementById("valorProducto").value;
     /* Ejecucion - test */
     
     /* Datos obtenidos del formulario  */
-    let p =new Persona(nombre,apellido,direccion,email,telefono,fechaNacimiento, situacionTributaria,antiguedad ,estadoCivil, ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni);
+    let p =new Persona(nombre,apellido,direccion,email,telefono,fechaNac, situacionTributaria,antiguedad ,estadoCivil, ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni);
     p.getPuntajeTotal();
     
     for (const propiedad in p){
@@ -179,12 +185,13 @@ const inputData =()=>{
     /* Despues de la eleccion del producto y completado los datos se realiza la solicitud del credito */
     let solicitudCredito=new SolicitudCredito(valorProducto);
     solicitudCredito.getAnalisisPuntaje(p.puntajeTotal);
-    
-    
     for (const propiedad in solicitudCredito){
         console.log(propiedad+":"+solicitudCredito[propiedad]);
     }
-
+    $("#formCuotas").toggle();
+    document.getElementById("cuotas").value = solicitudCredito.cuotas;
+    document.getElementById("montoCuota").value = solicitudCredito.montoCuota;
+    document.getElementById("montoConInteres").value   = solicitudCredito.montoConInteres;
 }
 
 

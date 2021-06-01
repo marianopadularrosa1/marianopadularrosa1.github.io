@@ -23,14 +23,12 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <h1 class="logo"><a href="index.html">SmartCredit<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
-
+     
       <nav id="navbar" class="navbar">
         <ul>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+      </nav>
 
     </div>
   </header><!-- End Header -->
@@ -82,7 +80,7 @@
 
 
         </div>
-        <button type="button" class="btn btn-primary " onclick="inputData()">Solicitar Crédito</button>
+        <button type="button" class="btn btn-primary " onclick="mostrarForm()">Solicitar Crédito</button>
 
         <!-- Formulario-->
         <div id="inputForm" class="container jumbotron my-4" style="display:none;">
@@ -98,21 +96,25 @@
                         <input id="apellido" type="text" name="apellido" label="Apellido">
                     </div>
                     <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input id="dni" type="text" name="dni" label="dni">
+                    </div>
+                    <div class="form-group">
                         <label for="telefono">Teléfono</label>
                         <input id="telefono" type="number" name="telefono" label="Telefono">
 
                     </div>
                     <div class="form-group">
                         <label for="direccion">Dirección</label>
-                        <input id="direccion" type="number" name="direccion" label="Direccion">
+                        <input id="direccion" type="text" name="direccion" label="Direccion">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input id="email" type="email" name="email" label="Email">
                     </div>
                     <div class="form-group">
-                        <label for="fechaNac">Fecha de Nacimiento</label>
-                        <input id="fechaNac" type="fechaNac" name="fechaNac" label="fechaNac">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input id="fechaNacimiento" type="text" name="fechaNacimiento" label="fechaNacimiento" placeholder="DD-MM-AAAA">
                     </div>
                     <div class="form-group">
                         <label for="situaciontributaria">Situación Tributaria</label>
@@ -178,7 +180,22 @@
                         <label for="adjuntaDocs">Documentos adicionales</label>
                         <input type="file" class="form-control-file" id="adjuntaDocs">
                     </div>
-                    <button type="submit" class="btn btn-primary">Solicitar</button>
+                    <button type="button" class="btn btn-primary " onclick="inputData()">Elegir forma Pago</button>
+                    <div id="formCuotas" style="display:none;">
+                        <div class="form-group">
+                            <label for="cuotas">cuotas</label>
+                            <input id="cuotas" type="text" name="cuotas">
+                        </div>
+                        <div class="form-group">
+                            <label for="montoCuota">montoCuota</label>
+                            <input id="montoCuota" type="text" name="montoCuota">
+                        </div>
+                        <div class="form-group">
+                            <label for="montoConInteres">montoConInteres</label>
+                            <input id="montoConInteres" type="text" name="montoConInteres">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Solicitar</button>
+                    </div>
                     <small id="help" class="form-text text-muted">Un asesor de nuestro equipo se comunicará para validar
                         la
                         solicitud y mostrar nuestra propuesta</small>
@@ -186,6 +203,7 @@
             </div>
         </div>
     </div>
+    
 
     <!-- Footer-->
     <footer class="py-5 bg-dark">
