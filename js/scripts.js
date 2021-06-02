@@ -1,9 +1,3 @@
-let nombre="Test";
-let apellido="Test";
-let direccion="Calle 1234";
-let telefono="12345678910";
-let dni="123213123";
-let email="mariano.padularrosa@gmail.com";
 
 const getValorCuota =(valorProducto, cantCuotas)=>  valorProducto / cantCuotas;
 
@@ -154,16 +148,22 @@ function unselect(){
 
   const mostrarForm=()=>{
     $("#inputForm").toggle();
+    const situacionTributariaArray =['empleado','autonomo','monotributista','freelance', 'jubilado','otro'];
+    const estadoCivilArray =['soltero','casado','otro'];
+    const tarjetaCreditoArray =['visa','mastercard','naranja','cabal','otro'];
+    loadSelect("situacionTributaria",situacionTributariaArray);
+    loadSelect("estadoCivil",estadoCivilArray);
+    loadSelect("tarjetaCredito",tarjetaCreditoArray);
   }
 
 /* Se invoca onclick del boton Solicitar Credito */
 const inputData =()=>{
-    let dni=1;
+    
+    let dni = (document.getElementById("dni")||{}).value||"";
     let nombre = (document.getElementById("nombre")||{}).value||"";
     let apellido =( document.getElementById("apellido")||{}).value||"";
     let fechaNac = (document.getElementById("fechaNacimiento")||{}).value||"";
     let situacionTributaria = (document.getElementById("situacionTributaria")||{}).value||"";
-    //let situacionTributaria=prompt("Ingrese su situacion laboral:(empleado,autonomo,monotributista,freelance)");
     let antiguedad=(document.getElementById("antiguedad")||{}).value||"";
     let ingresosMensuales=(document.getElementById("ingresosMensuales")||{}).value||"";
     let estadoCivil=(document.getElementById("estadoCivil")||{}).value||"";
@@ -189,9 +189,20 @@ const inputData =()=>{
         console.log(propiedad+":"+solicitudCredito[propiedad]);
     }
     $("#formCuotas").toggle();
-    document.getElementById("cuotas").value = solicitudCredito.cuotas;
+    
+    loadSelect("selectCuotas",solicitudCredito.cuotas);
     document.getElementById("montoCuota").value = solicitudCredito.montoCuota;
     document.getElementById("montoConInteres").value   = solicitudCredito.montoConInteres;
+}
+
+const loadSelect =(elementId,arrayOfData)=>{
+    for (let i=0;i< arrayOfData.length ; i++) {
+        var option = document.createElement("option");
+        option.innerHTML = arrayOfData[i].toUpperCase();
+        option.value = arrayOfData[i];
+        document.getElementById(elementId).add(option);
+    }
+
 }
 
 

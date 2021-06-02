@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Smart Credit</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/001-discount.svg" />
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.svg" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/assets/css/style.css" rel="stylesheet" />
@@ -102,7 +102,6 @@
                     <div class="form-group">
                         <label for="telefono">Teléfono</label>
                         <input id="telefono" type="number" name="telefono" label="Telefono">
-
                     </div>
                     <div class="form-group">
                         <label for="direccion">Dirección</label>
@@ -117,14 +116,10 @@
                         <input id="fechaNacimiento" type="text" name="fechaNacimiento" label="fechaNacimiento" placeholder="DD-MM-AAAA">
                     </div>
                     <div class="form-group">
-                        <label for="situaciontributaria">Situación Tributaria</label>
-                        <select id="situaciontributaria" name="situacionTributaria"
-                            class="form-control-sm form-control ">
+                        <label for="situacionTributaria">Situación Tributaria</label>
+                        <select id="situacionTributaria" name="situacionTributaria"
+                            class="form-control-sm form-control">
                             <option>Elige ‣</option>
-                            <option>Empleado</option>
-                            <option>Autonomo</option>
-                            <option>Monotributista</option>
-                            <option>Freelance</option>
                         </select>
                         <small id="situaciontributariaHelp" class="form-text text-muted">Luego solicitaremos evidencias
                             que
@@ -140,11 +135,9 @@
                         <input id="antiguedad" type="number" name="ahorros">
                     </div>
                     <div class="form-group">
-                        <label for="estadocivil">Estado civil</label>
-                        <select id="estadocivil" name="estadoCivil" class="form-control-sm form-control">
+                        <label for="estadoCivil">Estado civil</label>
+                        <select id="estadoCivil" name="estadoCivil" class="form-control-sm form-control">
                             <option>Elige ‣</option>
-                            <option>Soltero</option>
-                            <option>Casado</option>
                         </select>
                         <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
                             respalde el estado civil</small>
@@ -153,11 +146,6 @@
                         <label for="tarjetaCredito">Tarjeta de Crédito</label>
                         <select id="tarjetaCredito" name="tarjetaCredito" class="form-control-sm form-control">
                             <option>Elige ‣</option>
-                            <option>VISA</option>
-                            <option>MASTERCARD</option>
-                            <option>CABAL</option>
-                            <option>NARANJA</option>
-                            <option>NINGUNA</option>
                         </select>
                         <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
                             respalde su información</small>
@@ -183,16 +171,17 @@
                     <button type="button" class="btn btn-primary " onclick="inputData()">Elegir forma Pago</button>
                     <div id="formCuotas" style="display:none;">
                         <div class="form-group">
-                            <label for="cuotas">cuotas</label>
-                            <input id="cuotas" type="text" name="cuotas">
+                            <label for="selectCuotas">Cuotas</label>
+                            <select id="selectCuotas" name="selectCuotas" class="form-control-sm form-control">
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="montoCuota">montoCuota</label>
-                            <input id="montoCuota" type="text" name="montoCuota">
+                            <input id="montoCuota" type="text" name="montoCuota" readonly>
                         </div>
                         <div class="form-group">
                             <label for="montoConInteres">montoConInteres</label>
-                            <input id="montoConInteres" type="text" name="montoConInteres">
+                            <input id="montoConInteres" type="text" name="montoConInteres" readonly>
                         </div>
                         <button type="submit" class="btn btn-primary">Solicitar</button>
                     </div>
