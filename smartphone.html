@@ -83,112 +83,12 @@
         <button type="button" class="btn btn-primary " onclick="mostrarForm()">Solicitar Crédito</button>
 
         <!-- Formulario-->
-        <div id="inputForm" class="container jumbotron my-4" style="display:none;">
-            <div class="row">
-                <form action="" method="post">
-                    <label for="solicitud">Solitamos algunos datos para conocerte</label>
-                    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input id="nombre" type="text" name="nombre" label="Nombre">
-                    </div>
-                    <div class="form-group">
-                        <label for="apellido">Apellido</label>
-                        <input id="apellido" type="text" name="apellido" label="Apellido">
-                    </div>
-                    <div class="form-group">
-                        <label for="dni">DNI</label>
-                        <input id="dni" type="text" name="dni" label="dni">
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono</label>
-                        <input id="telefono" type="number" name="telefono" label="Telefono">
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección</label>
-                        <input id="direccion" type="text" name="direccion" label="Direccion">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input id="email" type="email" name="email" label="Email">
-                    </div>
-                    <div class="form-group">
-                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
-                        <input id="fechaNacimiento" type="text" name="fechaNacimiento" label="fechaNacimiento" placeholder="DD-MM-AAAA">
-                    </div>
-                    <div class="form-group">
-                        <label for="situacionTributaria">Situación Tributaria</label>
-                        <select id="situacionTributaria" name="situacionTributaria"
-                            class="form-control-sm form-control">
-                            <option>Elige ‣</option>
-                        </select>
-                        <small id="situaciontributariaHelp" class="form-text text-muted">Luego solicitaremos evidencias
-                            que
-                            respalden los ingresos</small>
-
-                    </div>
-                    <div class="form-group">
-                        <label for="ingresosmensuales">Ingresos Mensuales</label>
-                        <input id="ingresosmensuales" type="number" name="ingresosMensuales">
-                    </div>
-                    <div class="form-group">
-                        <label for="antiguedad">Antigüedad</label>
-                        <input id="antiguedad" type="number" name="ahorros">
-                    </div>
-                    <div class="form-group">
-                        <label for="estadoCivil">Estado civil</label>
-                        <select id="estadoCivil" name="estadoCivil" class="form-control-sm form-control">
-                            <option>Elige ‣</option>
-                        </select>
-                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
-                            respalde el estado civil</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="tarjetaCredito">Tarjeta de Crédito</label>
-                        <select id="tarjetaCredito" name="tarjetaCredito" class="form-control-sm form-control">
-                            <option>Elige ‣</option>
-                        </select>
-                        <small id="estadocivilHelp" class="form-text text-muted">Luego solicitaremos documentacion que
-                            respalde su información</small>
-                    </div>
-                    <div class="form-group">
-                        <label for="ingresosMensualesPareja">Ingresos Mensuales Pareja</label>
-                        <input id="ingresosMensualesPareja" type="number" name="ingresosMensualesPareja">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="valorProducto">Valor Producto</label>
-                        <input id="valorProducto" type="number" name="valorProducto">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="adjuntaRecibo">Recibo de Sueldo</label>
-                        <input type="file" class="form-control-file" id="adjuntaRecibo">
-                    </div>
-                    <div class="form-group">
-                        <label for="adjuntaDocs">Documentos adicionales</label>
-                        <input type="file" class="form-control-file" id="adjuntaDocs">
-                    </div>
-                    <button type="button" class="btn btn-primary " onclick="inputData()">Elegir forma Pago</button>
-                    <div id="formCuotas" style="display:none;">
-                        <div class="form-group">
-                            <label for="selectCuotas">Cuotas</label>
-                            <select id="selectCuotas" name="selectCuotas" class="form-control-sm form-control">
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="montoCuota">montoCuota</label>
-                            <input id="montoCuota" type="text" name="montoCuota" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="montoConInteres">montoConInteres</label>
-                            <input id="montoConInteres" type="text" name="montoConInteres" readonly>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Solicitar</button>
-                    </div>
-                    <small id="help" class="form-text text-muted">Un asesor de nuestro equipo se comunicará para validar
-                        la
-                        solicitud y mostrar nuestra propuesta</small>
-                </form>
+        <div id="inputDiv" class="container jumbotron my-4" style="display:none;">
+            <div class="row" >
+                <div id="inputForm"   > 
+                </div>
+                <div id="formCuotas" style="display:none;">
+                </div>
             </div>
         </div>
     </div>
