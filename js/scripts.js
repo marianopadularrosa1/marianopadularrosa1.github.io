@@ -16,7 +16,7 @@ const fieldsArray = [
                 { id: 11,  fieldId: "estadoCivil", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control"},
                 { id: 12,  fieldId: "tarjetaCredito", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control"},
                 { id: 13,  fieldId: "ingresosMensualesPareja", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
-                { id: 14,  fieldId: "valorProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 14,  fieldId: "valorProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"",readonly:"true"},
                 { id: 15,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary", value:"Elegir Forma de Pago", onclick:"inputData()"},
                ];
 const fieldsArrayElegirFormaPago = [
@@ -283,12 +283,14 @@ function getHtml(){
 document.addEventListener("DOMContentLoaded", function(event) {
     getHtml();
   });
-function myfunction(event) {
-    document.getElementById("valorProducto").value=event.target.value;
+function updateValorProducto(event) {
+    if(document.getElementById("valorProducto")!=null){
+        document.getElementById("valorProducto").value=event.target.value;
+    }
      
 }
 document.querySelectorAll("[name=radio]").forEach((input) => {
-    input.addEventListener('change', myfunction);
+    input.addEventListener('change', updateValorProducto);
 });
 /* solo se podra un producto a la vez antes de solicitar el credito */
 function unselect(){
