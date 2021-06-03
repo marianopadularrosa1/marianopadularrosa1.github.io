@@ -1,3 +1,56 @@
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+const fieldsArray = [
+                { id: 1,  fieldId: "nombre", fieldType: "text" , element:"input",placeholder:"",innerHTML:"Nombre",class:""},
+                { id: 2,  fieldId: "apellido", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 3,  fieldId: "dni", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 4,  fieldId: "telefono", fieldType: "number" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 5,  fieldId: "direccion", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 6,  fieldId: "email", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 7,  fieldId: "fechaNacimiento", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 8,  fieldId: "situacionTributaria", fieldType: "text" , element:"select",placeholder:"",innerHTML:"Situacion Tributaria",class:"form-control-sm form-control"},
+                { id: 9,  fieldId: "ingresosMensuales", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 10,  fieldId: "antiguedad", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 11,  fieldId: "estadoCivil", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control"},
+                { id: 12,  fieldId: "tarjetaCredito", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control"},
+                { id: 13,  fieldId: "ingresosMensualesPareja", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 14,  fieldId: "valorProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 15,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary", value:"Elegir Forma de Pago", onclick:"inputData()"},
+               ];
+const fieldsArrayElegirFormaPago = [
+                { id: 1,  fieldId: "selectCuotas", fieldType: "test" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
+                { id: 2,  fieldId: "montoCuota", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:""},
+                { id: 3,  fieldId: "montoConInteres", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:""},
+                { id: 4,  fieldId: "solicitar", fieldType: "submit" , element:"input",placeholder:"solicitar",innerHTML:"solicitar",class:"btn btn-primary", value:"Solicitar", onclick:"inputData()"},
+            ];
+const createForm=(arrayOfFields, parentNode)=>{
+    for (const field of arrayOfFields) {
+            let formGroup = document.createElement("div");
+            let label= document.createElement("label");
+            let element= document.createElement(field.element);
+            element.setAttribute("id",field.fieldId);
+            element.setAttribute("name",field.fieldId);
+            element.setAttribute("label",field.fieldId);
+            element.setAttribute("type",field.fieldType);
+            element.setAttribute("class",field.class);
+            formGroup.setAttribute("class","form-group");
+            label.setAttribute("for",field.fieldId);
+            if(field.fieldType=="submit"){
+                element.setAttribute("value",field.value);
+                element.setAttribute("onclick",field.onclick);
+            }else{
+                label.innerHTML= capitalize(field.innerHTML)!=""?capitalize(field.innerHTML):capitalize(field.fieldId);
+                
+            }
+            formGroup.appendChild(label);
+            formGroup.appendChild(element);
+            parentNode.appendChild(formGroup);
+    }
+    
+}
+
 
 const getValorCuota =(valorProducto, cantCuotas)=>  valorProducto / cantCuotas;
 
@@ -145,24 +198,43 @@ class Persona{
 function unselect(){
     document.querySelectorAll('[name=radio]').forEach((x) => x.checked=false);
   }
-
+/* Se invoca onclick del boton Solicitar */
   const mostrarForm=()=>{
-    $("#inputForm").toggle();
-    const situacionTributariaArray =['empleado','autonomo','monotributista','freelance', 'jubilado','otro'];
-    const estadoCivilArray =['soltero','casado','otro'];
-    const tarjetaCreditoArray =['visa','mastercard','naranja','cabal','otro'];
+    let inputForm = document.getElementById('inputForm');  
+    createForm(fieldsArray,inputForm);
+    let formCuotas = document.getElementById('formCuotas');  
+    createForm(fieldsArrayElegirFormaPago,formCuotas);
+
+
+    
+    let inputDiv = document.getElementById("inputDiv");
+    let display = getComputedStyle(inputDiv).display;
+    if (display == "none") {
+        inputDiv.style.display = "block";
+    } 
+
+
+    const situacionTributariaArray =['seleccione->','empleado','autonomo','monotributista','freelance', 'jubilado','otro'];
+    const estadoCivilArray =['seleccione->','soltero','casado','otro'];
+    const tarjetaCreditoArray =['seleccione->','visa','mastercard','naranja','cabal','otro'];
     loadSelect("situacionTributaria",situacionTributariaArray);
     loadSelect("estadoCivil",estadoCivilArray);
     loadSelect("tarjetaCredito",tarjetaCreditoArray);
   }
 
-/* Se invoca onclick del boton Solicitar Credito */
+/* Se invoca onclick del boton Elegir Forma Pago */
 const inputData =()=>{
     
+    let formCuotas = document.getElementById("formCuotas");
+    let display = getComputedStyle(formCuotas).display;
+    if (display == "none") {
+        formCuotas.style.display = "block";
+    } 
     let dni = (document.getElementById("dni")||{}).value||"";
     let nombre = (document.getElementById("nombre")||{}).value||"";
     let apellido =( document.getElementById("apellido")||{}).value||"";
     let fechaNac = (document.getElementById("fechaNacimiento")||{}).value||"";
+    let direccion = (document.getElementById("direccion")||{}).value||"";
     let situacionTributaria = (document.getElementById("situacionTributaria")||{}).value||"";
     let antiguedad=(document.getElementById("antiguedad")||{}).value||"";
     let ingresosMensuales=(document.getElementById("ingresosMensuales")||{}).value||"";
@@ -188,17 +260,17 @@ const inputData =()=>{
     for (const propiedad in solicitudCredito){
         console.log(propiedad+":"+solicitudCredito[propiedad]);
     }
-    $("#formCuotas").toggle();
+    
     
     loadSelect("selectCuotas",solicitudCredito.cuotas);
-    document.getElementById("montoCuota").value = solicitudCredito.montoCuota;
+    document.getElementById("montoCuota").value = solicitudCredito.montoCuota!=null?solicitudCredito.montoCuota:"0";
     document.getElementById("montoConInteres").value   = solicitudCredito.montoConInteres;
 }
 
 const loadSelect =(elementId,arrayOfData)=>{
     for (let i=0;i< arrayOfData.length ; i++) {
         var option = document.createElement("option");
-        option.innerHTML = arrayOfData[i].toUpperCase();
+        option.innerHTML = arrayOfData[i];
         option.value = arrayOfData[i];
         document.getElementById(elementId).add(option);
     }
