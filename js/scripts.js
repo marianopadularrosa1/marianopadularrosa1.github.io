@@ -21,8 +21,8 @@ const fieldsArray = [
                ];
 const fieldsArrayElegirFormaPago = [
                 { id: 1,  fieldId: "selectCuotas", fieldType: "test" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
-                { id: 2,  fieldId: "montoCuota", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:""},
-                { id: 3,  fieldId: "montoConInteres", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:""},
+                { id: 2,  fieldId: "montoCuota", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:"",readonly:"true"},
+                { id: 3,  fieldId: "montoConInteres", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"", value:"",readonly:"true"},
                 { id: 4,  fieldId: "solicitar", fieldType: "submit" , element:"input",placeholder:"solicitar",innerHTML:"solicitar",class:"btn btn-primary", value:"Solicitar", onclick:"inputData()"},
             ];
 const createForm=(arrayOfFields, parentNode)=>{
@@ -35,6 +35,7 @@ const createForm=(arrayOfFields, parentNode)=>{
             element.setAttribute("label",field.fieldId);
             element.setAttribute("type",field.fieldType);
             element.setAttribute("class",field.class);
+            if(field.readonly=="true"){element.setAttribute("readonly","true")}
             formGroup.setAttribute("class","form-group");
             label.setAttribute("for",field.fieldId);
             if(field.fieldType=="submit"){
@@ -194,12 +195,11 @@ class Persona{
     
 }
 
-/* solo se podra un producto a la vez antes de solicitar el credito */
-function unselect(){
-    document.querySelectorAll('[name=radio]').forEach((x) => x.checked=false);
-  }
+
+
 /* Se invoca onclick del boton Solicitar */
   const mostrarForm=()=>{
+    
     let inputForm = document.getElementById('inputForm');  
     createForm(fieldsArray,inputForm);
     let formCuotas = document.getElementById('formCuotas');  
@@ -220,6 +220,7 @@ function unselect(){
     loadSelect("situacionTributaria",situacionTributariaArray);
     loadSelect("estadoCivil",estadoCivilArray);
     loadSelect("tarjetaCredito",tarjetaCreditoArray);
+    document.getElementById("valorProducto").value=getValorSeleccionado();
   }
 
 /* Se invoca onclick del boton Elegir Forma Pago */
@@ -269,12 +270,33 @@ const inputData =()=>{
 
 const loadSelect =(elementId,arrayOfData)=>{
     for (let i=0;i< arrayOfData.length ; i++) {
-        var option = document.createElement("option");
-        option.innerHTML = arrayOfData[i];
+        let option = document.createElement("option");
+
+        option.innerHTML = typeof(arrayOfData[i])=='string'?arrayOfData[i].toUpperCase():arrayOfData[i] ;
         option.value = arrayOfData[i];
         document.getElementById(elementId).add(option);
     }
-
 }
-
-
+function getHtml(){
+    //alert(document.documentURI.split("/")[document.documentURI.split("/").length-1]);
+}
+document.addEventListener("DOMContentLoaded", function(event) {
+    getHtml();
+  });
+function myfunction(event) {
+    document.getElementById("valorProducto").value=event.target.value;
+     
+}
+document.querySelectorAll("[name=radio]").forEach((input) => {
+    input.addEventListener('change', myfunction);
+});
+/* solo se podra un producto a la vez antes de solicitar el credito */
+function unselect(){
+    document.querySelectorAll('[name=radio]').forEach((x) => x.checked=false); 
+ }
+/* obtener el radio seleccionado */
+let getValorSeleccionado= ()=>{
+    if(document.querySelector('[name=radio]:checked')!=null){
+        return document.querySelector('[name=radio]:checked').value;
+    };
+}
