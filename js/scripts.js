@@ -9,7 +9,7 @@ const fieldsArray = [
                 { id: 4,  fieldId: "telefono", fieldType: "number" , element:"input",placeholder:"",innerHTML:"",class:""},
                 { id: 5,  fieldId: "direccion", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
                 { id: 6,  fieldId: "email", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
-                { id: 7,  fieldId: "fechaNacimiento", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+                { id: 7,  fieldId: "fechaNacimiento", fieldType: "date" , element:"input",placeholder:"",innerHTML:"",class:""},
                 { id: 8,  fieldId: "situacionTributaria", fieldType: "text" , element:"select",placeholder:"",innerHTML:"Situacion Tributaria",class:"form-control-sm form-control"},
                 { id: 9,  fieldId: "ingresosMensuales", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
                 { id: 10,  fieldId: "antiguedad", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
@@ -114,10 +114,10 @@ class Persona{
         this.puntajeTotal=0;
     }
     getEdad= function (fechaNacimiento) {
-        const anioNac= toDate(fechaNacimiento) ;
-        const ageDifMs = Date.now() - anioNac;
-        const ageDate = new Date(ageDifMs); 
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
+        const anioNac= (parseDate(fechaNacimiento)).getFullYear() ;
+        const today =new Date().getFullYear();
+        const ageDifMs = today - anioNac;
+        return ageDifMs;
     }
     getEsMayorDeEdad = (fechaNacimiento)=>{
         let edad =  this.getEdad(fechaNacimiento);
@@ -302,3 +302,9 @@ let getValorSeleccionado= ()=>{
         return document.querySelector('[name=radio]:checked').value;
     };
 }
+
+function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+    return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
+  }
