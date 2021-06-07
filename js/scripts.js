@@ -205,13 +205,9 @@ class Persona{
     let formCuotas = document.getElementById('formCuotas');  
     createForm(fieldsArrayElegirFormaPago,formCuotas);
 
-
-    
     let inputDiv = document.getElementById("inputDiv");
     let display = getComputedStyle(inputDiv).display;
-    if (display == "none") {
-        inputDiv.style.display = "block";
-    } 
+    if (display == "none")  inputDiv.style.display = "block"; 
 
 
     const situacionTributariaArray =['seleccione->','empleado','autonomo','monotributista','freelance', 'jubilado','otro'];
@@ -228,9 +224,7 @@ const inputData =()=>{
     
     let formCuotas = document.getElementById("formCuotas");
     let display = getComputedStyle(formCuotas).display;
-    if (display == "none") {
-        formCuotas.style.display = "block";
-    } 
+    if (display == "none") { formCuotas.style.display = "block";} 
     let dni = (document.getElementById("dni")||{}).value||"";
     let nombre = (document.getElementById("nombre")||{}).value||"";
     let apellido =( document.getElementById("apellido")||{}).value||"";
@@ -277,11 +271,24 @@ const loadSelect =(elementId,arrayOfData)=>{
         document.getElementById(elementId).add(option);
     }
 }
-function getHtml(){
-    //alert(document.documentURI.split("/")[document.documentURI.split("/").length-1]);
+
+
+function inicializarProd(){
+    let htmlActual=document.documentURI.split("/")[document.documentURI.split("/").length-1];
+    if(htmlActual== "smartphone.html"){
+        let productos  = document.getElementById("productos");
+        createProductos(arrayOfCards,productos);
+        
+    }
 }
+
 document.addEventListener("DOMContentLoaded", function(event) {
-    getHtml();
+    inicializarProd();
+    let myRadios= document.querySelectorAll('[name=radio]');
+    console.log(myRadios);
+    myRadios.forEach((input) => {
+        input.addEventListener('change', updateValorProducto);
+    });
   });
 function updateValorProducto(event) {
     if(document.getElementById("valorProducto")!=null){
@@ -289,9 +296,8 @@ function updateValorProducto(event) {
     }
      
 }
-document.querySelectorAll("[name=radio]").forEach((input) => {
-    input.addEventListener('change', updateValorProducto);
-});
+
+
 /* solo se podra un producto a la vez antes de solicitar el credito */
 function unselect(){
     document.querySelectorAll('[name=radio]').forEach((x) => x.checked=false); 
@@ -305,6 +311,52 @@ let getValorSeleccionado= ()=>{
 
 function parseDate(input) {
     var parts = input.match(/(\d+)/g);
-    // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
     return new Date(parts[0], parts[1]-1, parts[2]); // months are 0-based
   }
+const arrayOfCards = [
+    { id: 1,  cardId: "smartphone1", cardSrc: "/assets/img/portfolio/smartphoneX.jpg" , cardAlt:"", cardTitle:"SmartphoneX", cardText:"Samsung Galaxy S10. 70.000$.-", radioType:"radio", radioId:"radio4", radioValue:"70000"},
+    { id: 2,  cardId: "smartphone2", cardSrc: "/assets/img/portfolio/smartphone3.jpg" , cardAlt:"", cardTitle:"Smartphone1", cardText:"Samsung S5 80.000$.-", radioType:"radio", radioId:"radio5", radioValue:"80000"},
+    { id: 3,  cardId: "smartphone3", cardSrc: "/assets/img/portfolio/smartphone.jpg" , cardAlt:"", cardTitle:"Smartphone3", cardText:"Samsung S1 S10. 90.000$.-", radioType:"radio", radioId:"radio6", radioValue:"90000"},
+];
+const createProductos=(arrayOfCards, parentNode)=>{
+    for (const card of arrayOfCards) {
+            let divPpal = document.createElement("div");
+            let div2 = document.createElement("div");
+            let img = document.createElement("img");
+            let div3 = document.createElement("div");
+            let h4 = document.createElement("h4");
+            let p = document.createElement("p");
+            let input = document.createElement("input");
+            let label= document.createElement("label");
+            divPpal.setAttribute("class","col-lg-4 col-md-6 mb-4");
+            div2.setAttribute("class","card h-100");
+            img.setAttribute("height","250px");
+            img.setAttribute("class","card-img-top");
+            img.setAttribute("src",card.cardSrc);
+            img.setAttribute("data-toggle","popover");
+            img.setAttribute("data-trigger","hover");
+            div3.setAttribute("class","card-body");
+            h4.setAttribute("class","card-title");
+            h4.innerHTML=card.cardTitle;
+            p.setAttribute("class","card-text");
+            p.innerHTML=card.cardText;
+            input.setAttribute("type",card.radioType);
+            input.setAttribute("id",card.radioId);
+            input.setAttribute("name",card.radioType);
+            input.setAttribute("class",card.radioType);
+            input.setAttribute("value",card.radioValue);
+            label.setAttribute("for",card.radioId);
+            label.innerHTML=card.cardTitle;
+            var br = document.createElement('br');
+            div2.appendChild(img);
+            div2.appendChild(div3);
+            div3.appendChild(h4);
+            div3.appendChild(p);
+            div3.appendChild(input);
+            div3.appendChild(label);
+            div3.appendChild(br);
+            divPpal.appendChild(div2);
+            parentNode.appendChild(divPpal);
+        }
+        console.log(document.documentElement.innerHTML);
+}
