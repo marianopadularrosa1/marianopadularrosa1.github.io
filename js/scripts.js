@@ -292,7 +292,6 @@ function inicializarProd(){
 document.addEventListener("DOMContentLoaded", function(event) {
     inicializarProd();
     let myRadios= document.querySelectorAll('[name=radio]');
-    console.log(myRadios);
     myRadios.forEach((input) => {
         input.addEventListener('change', updateValorProducto);
     });
@@ -375,5 +374,4 @@ const createProductos=(arrayOfCards, parentNode)=>{
             divPpal.appendChild(div2);
             parentNode.appendChild(divPpal);
         }
-        console.log(document.documentElement.innerHTML);
 }
