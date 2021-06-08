@@ -74,13 +74,13 @@ class SolicitudCredito{
         this.topeMaximo = 0;
         this.preAprobado=false;
     }
-    getAnalisisPuntaje = function (puntaje){
+    getAnalisisPuntaje =  (puntaje)=>{
         if(puntaje<=5 && puntaje>0){this.setInteresCuotasTopeByPuntaje(40,[3,6],50000)}
         if(puntaje<=9 && puntaje>5){this.setInteresCuotasTopeByPuntaje(35,[3,6,9],80000)}
         if(puntaje<=12 && puntaje>9){this.setInteresCuotasTopeByPuntaje(33,[3,6,9,12],100000)}
         if(puntaje<=15 && puntaje>12){this.setInteresCuotasTopeByPuntaje(30,[3,6,9,12],150000)}
     }
-    setInteresCuotasTopeByPuntaje(interes,cuotas,topeMaximo){
+    setInteresCuotasTopeByPuntaje=(interes,cuotas,topeMaximo)=>{
         this.interes=parseFloat(interes);
         this.cuotas=cuotas; 
         this.topeMaximo=parseFloat(topeMaximo);
@@ -113,7 +113,7 @@ class Persona{
         this.tarjetaCredito=tarjetaCredito;
         this.puntajeTotal=0;
     }
-    getEdad= function (fechaNacimiento) {
+    getEdad=  (fechaNacimiento) =>{
         const anioNac= (parseDate(fechaNacimiento)).getFullYear() ;
         const today =new Date().getFullYear();
         const ageDifMs = today - anioNac;
@@ -125,14 +125,14 @@ class Persona{
         else return false;
     }
     
-    getPuntajeEdad = function(fechaNacimiento){   
+    getPuntajeEdad = (fechaNacimiento)=>{   
         let edad =  this.getEdad(fechaNacimiento);
         if(edad >=18 && edad <=50){return 2}
         else if(edad>50 && edad <=65){return 1}
         else if(edad<18){return 0; /*no deberia otorgarse el credito por eso se asigna puntaje cero */}
         else{return 0}
     }
-     getPuntajeAntiguedad = function(antiguedad){    
+     getPuntajeAntiguedad = (antiguedad)=>{    
         if(antiguedad >=2 && antiguedad <=5){return 2}
         else if(antiguedad>5) {return 3}
         else if(antiguedad==1){return 1}
@@ -140,7 +140,7 @@ class Persona{
     }
     
     
-    getPuntajeSituacionTributaria = function(situacionTributaria){
+    getPuntajeSituacionTributaria = (situacionTributaria)=>{
         situacionTributaria=situacionTributaria.toLowerCase();
         if(situacionTributaria=="autonomo"){ return 3 }
         else if(situacionTributaria=="empleado"){return 3 }
@@ -149,7 +149,7 @@ class Persona{
         else { return 0}
     }
     
-    getPuntajeIngresosMensuales = function(ingresosMensuales){
+    getPuntajeIngresosMensuales = (ingresosMensuales)=>{
         if(ingresosMensuales>=50000 && ingresosMensuales<100000){ return 1 }
         else if(ingresosMensuales>=100000 && ingresosMensuales<150000){return 2 }
         else if(ingresosMensuales>=150000 && ingresosMensuales<200000){return 3}
@@ -157,14 +157,14 @@ class Persona{
         else { return 0}
     }
     
-    getPuntajeEstadoCivil =function (estadoCivil){ 
+    getPuntajeEstadoCivil = (estadoCivil)=>{ 
         estadoCivil=estadoCivil.toLowerCase();
         if(estadoCivil=="soltero"){  return 3 }
         else if(estadoCivil=="casado"){ return 2  }
         else{return 0}
     }
     
-    getPuntajeIngresosPareja =function(ingresosMensualesPareja){
+    getPuntajeIngresosPareja =(ingresosMensualesPareja)=>{
         if(ingresosMensualesPareja>=50000 && ingresosMensualesPareja<100000){ return 1 }
         else if(ingresosMensualesPareja>=100000 && ingresosMensualesPareja<150000){return 2 }
         else if(ingresosMensualesPareja>=150000 && ingresosMensualesPareja<200000){return 3}
@@ -173,14 +173,14 @@ class Persona{
     
     }
     
-    getPuntajeTarjetaCredito = function(tarjetaCredito){
+    getPuntajeTarjetaCredito = (tarjetaCredito)=>{
         tarjetaCredito=tarjetaCredito.toLowerCase();
         if(tarjetaCredito=="visa" || tarjetaCredito=="mastercard"){ return 2 }
         else if(tarjetaCredito=="cabal" || tarjetaCredito=="naranja"){return 1 }
         else if(tarjetaCredito=="ninguna"){return 0 }
         else {return 0}
     }
-    getPuntajeTotal = function(){
+    getPuntajeTotal = ()=>{
         this.esMayorDeEdad = this.getEsMayorDeEdad(this.fechaNacimiento);
         if(this.esMayorDeEdad==true)
             this.puntajeTotal=(this.getPuntajeEdad(this.fechaNacimiento) + 
