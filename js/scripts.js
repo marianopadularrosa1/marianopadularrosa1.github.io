@@ -1,7 +1,7 @@
-function capitalize(string) {
+capitalize=(string)=> {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
+const guardarSession = (clave, valor) => { sessionStorage.setItem(clave, valor) };
 const fieldsArray = [
                 { id: 1,  fieldId: "nombre", fieldType: "text" , element:"input",placeholder:"",innerHTML:"Nombre",class:""},
                 { id: 2,  fieldId: "apellido", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
@@ -258,21 +258,45 @@ const inputData =()=>{
     
     
     loadSelect("selectCuotas",solicitudCredito.cuotas);
-    document.getElementById("montoCuota").value = solicitudCredito.montoCuota!=null?solicitudCredito.montoCuota:"0";
+    document.getElementById("montoCuota").value = solicitudCredito.montoCuota!=null?solicitudCredito.montoCuota[0]:"0";
     document.getElementById("montoConInteres").value   = solicitudCredito.montoConInteres;
+    guardarSession('solicitudCredito', JSON.stringify(solicitudCredito));
+    
+    let selectCuotas = document.getElementById("selectCuotas");
+    selectCuotas.addEventListener('change',updateMontoCuota);
 }
 
-const loadSelect =(elementId,arrayOfData)=>{
-    for (let i=0;i< arrayOfData.length ; i++) {
-        let option = document.createElement("option");
-
-        option.innerHTML = typeof(arrayOfData[i])=='string'?arrayOfData[i].toUpperCase():arrayOfData[i] ;
-        option.value = arrayOfData[i];
-        document.getElementById(elementId).add(option);
+updateMontoCuota=(event)=> {
+    if(document.getElementById("selectCuotas")!=null){
+        let sc = JSON.parse(sessionStorage.getItem("solicitudCredito"));
+        let idMonto = sc.cuotas.indexOf(parseInt(event.target.value)); 
+        document.getElementById("montoCuota").value=sc.montoCuota[idMonto];
     }
 }
+/**Carga valores para select */
+const loadSelect =(elementId,arrayOfData)=>{
+    let select = document.getElementById(elementId);
+    let cantSelect = select.options.length;
+    if(cantSelect>0 ){
+        removeOptions(select);
+    }
+    for (let i=0;i< arrayOfData.length ; i++) {
+        let option = document.createElement("option");
+        option.innerHTML = typeof(arrayOfData[i])=='string'?arrayOfData[i].toUpperCase():arrayOfData[i] ;
+        option.value = arrayOfData[i];
+        select.add(option);
+    }
+    
+}
+
+removeOptions=(selectElement)=> {
+    $(selectElement).empty();
+ }
+ 
+ 
 
 
+/* Inicializa productos de cada html */
 function inicializarProd(){
     let htmlActual=document.documentURI.split("/")[document.documentURI.split("/").length-1];
     if(htmlActual== "smartphone.html"){
@@ -299,8 +323,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function updateValorProducto(event) {
     if(document.getElementById("valorProducto")!=null){
         document.getElementById("valorProducto").value=event.target.value;
+        guardarSession('valorProducto', event.target.value);
     }
-     
 }
 
 
