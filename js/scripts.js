@@ -4,7 +4,7 @@ capitalize=(string)=> {
 const guardarSession = (clave, valor) => { sessionStorage.setItem(clave, valor) };
 
 const createForm=(arrayOfFields, parentNode)=>{
-    alert("parentNode.childNodes.length:"+parentNode.childNodes.length);
+    
     if(parentNode.childNodes.length==1){
         for (const field of arrayOfFields) {
                 let formGroup = document.createElement("div");
