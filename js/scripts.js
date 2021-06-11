@@ -155,9 +155,9 @@ function inicializarProd() {
 }
 /*Cuando se carga la pagina onload */
 document.addEventListener("DOMContentLoaded", function (event) {
+  addCSS(document.body);
   /*inicializacion de productos */
   inicializarProd();
-  addVendors(document.getElementById("head"));
   let myRadios = document.querySelectorAll("[name=radio]");
   myRadios.forEach((input) => {
     input.addEventListener("change", updateValorProducto);
@@ -256,24 +256,29 @@ createModal = () => {
   modal.setAttribute("class", "modal fade");
   modal.setAttribute("id", "myModal");
   modal.setAttribute("role", "dialog");
-  modal.innerHTML = ` <div class="modal-dialog">  
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">SmartCredit</h4>
+  modal.setAttribute("data-bs-backdrop","static");
+  modal.setAttribute("data-bs-keyboard","false");
+  modal.innerHTML = `<!-- Modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <p>Seleccione un Producto antes de avanzar</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
         </div>
-        <div class="modal-body">
-            <p>Seleccione un Producto antes de avanzar</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-    </div>
-    </div>`;
+      </div>`;
+
     document.body.appendChild(modal);
 };
-addVendors=(parentNode)=>{
+addCSS=(parentNode)=>{
     let link1 = document.createElement('link');
     let link2 = document.createElement('link');
     let link3 = document.createElement('link');
@@ -283,11 +288,11 @@ addVendors=(parentNode)=>{
     let link7 = document.createElement('link');
     link1.setAttribute("href","/css/styles.css");
     link2.setAttribute("href","/assets/css/style.css");
-    link3.setAttribute("href","assets/vendor/aos/aos.css");
-    link4.setAttribute("href","assets/vendor/bootstrap-icons/bootstrap-icons.css");
-    link5.setAttribute("href","assets/vendor/boxicons/css/boxicons.min.css");
-    link6.setAttribute("href","assets/vendor/glightbox/css/glightbox.min.css");
-    link7.setAttribute("href","assets/vendor/swiper/swiper-bundle.min.css");
+    link3.setAttribute("href","/assets/vendor/aos/aos.css");
+    link4.setAttribute("href","/assets/vendor/bootstrap-icons/bootstrap-icons.css");
+    link5.setAttribute("href","/assets/vendor/boxicons/css/boxicons.min.css");
+    link6.setAttribute("href","/assets/vendor/glightbox/css/glightbox.min.css");
+    link7.setAttribute("href","/assets/vendor/swiper/swiper-bundle.min.css");
     link1.setAttribute("rel","stylesheet");
     link2.setAttribute("rel","stylesheet");
     link3.setAttribute("rel","stylesheet");
