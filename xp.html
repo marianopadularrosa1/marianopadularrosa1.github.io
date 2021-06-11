@@ -12,26 +12,30 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/assets/css/style.css" rel="stylesheet" />
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 </head>
 
 <body>
-    
-   <!-- ======= Header ======= -->
-   <header id="header" class="d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">SmartCredit<span>.</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
 
-      <nav id="navbar" class="navbar">
-        <ul>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
+            <h1 class="logo"><a href="index.html">SmartCredit<span>.</span></a></h1>
 
-    </div>
-  </header><!-- End Header -->
+            <nav id="navbar" class="navbar">
+                <ul>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header><!-- End Header -->
 
     <!-- Page Content-->
     <div class="container">
@@ -47,15 +51,15 @@
         <button type="button" class="btn btn-primary " onclick="mostrarForm()">Solicitar Crédito</button>
         <!-- Formulario-->
         <div id="inputDiv" class="container jumbotron my-4" style="display:none;">
-            <div class="row" >
-                <div id="inputForm"   > 
+            <div class="row">
+                <div id="inputForm">
                 </div>
                 <div id="formCuotas" style="display:none;">
                 </div>
             </div>
         </div>
         <!--Formulario WebToLead Prueba-->
-        <div id="inputFormSF" class="container jumbotron my-4" style="display:none;" >
+        <div id="inputFormSF" class="container jumbotron my-4" style="display:none;">
             <div class="row jumbotron my-4">
                 <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
                     <input type=hidden name="oid" value="00D6g000006uh5n">
@@ -89,8 +93,8 @@
                             type="text" /><br>
                     </div>
                     <div class="form-group">
-                        <label for="SalaryOfCouple">SalaryOfCouple:</label><input id="00N6g00000VAcrM" name="SalaryOfCouple"
-                        size="20" type="text" /><br>
+                        <label for="SalaryOfCouple">SalaryOfCouple:</label><input id="00N6g00000VAcrM"
+                            name="SalaryOfCouple" size="20" type="text" /><br>
                     </div>
                     <div class="form-group">
                         <label for="SmartCreditScoring">SmartCreditScoring:</label><input id="00N6g00000VAcrR"
@@ -105,7 +109,7 @@
                     <label for="PreApproved">PreApproved:</label>
                     <input id="00N6g00000VAcrb" name="PreApproved" type="checkbox" value="1" /><br>
                     <label for="BirthDate">BirthDate:</label><span class="dateInput dateOnlyInput">
-                        <input  id="00N6g00000VAcrg" name="BirthDate" size="12" type="text" /></span>
+                        <input id="00N6g00000VAcrg" name="BirthDate" size="12" type="text" /></span>
                     <label for="DNI">DNI:</label><input id="00N6g00000VAcrl" name="DNI" size="20" type="text" /><br>
                     <label for="situacionTributaria">situacionTributaria:</label><input id="00N6g00000VAcrv"
                         maxlength="25" name="situacionTributaria" size="20" type="text" />
@@ -116,24 +120,24 @@
 
                     <label for="tarjetaDeCredito">Tarjeta De Credito:</label><input id="00N6g00000VAcsA" maxlength="20"
                         name="tarjetaDeCredito" size="20" type="text" />
-                    <div class="form-group"> 
-                        <label for="valorProducto">Valor Producto:</label><input id="00N6g00000VAcsF" name="valorProducto" size="20"
-                            type="text" />                 
-                         </div>
                     <div class="form-group">
-                        
-                        <label for="Antiguedad">Antiguedad:</label><input id="00N6g00000VAcsK" name="Antiguedad" size="20"
-                            type="text" />
+                        <label for="valorProducto">Valor Producto:</label><input id="00N6g00000VAcsF"
+                            name="valorProducto" size="20" type="text" />
                     </div>
                     <div class="form-group">
 
-                        <label for="Address">Address:</label><input id="00N6g00000VAcsU" maxlength="100" name="Address" size="20"
-                            type="text" />
+                        <label for="Antiguedad">Antiguedad:</label><input id="00N6g00000VAcsK" name="Antiguedad"
+                            size="20" type="text" />
+                    </div>
+                    <div class="form-group">
+
+                        <label for="Address">Address:</label><input id="00N6g00000VAcsU" maxlength="100" name="Address"
+                            size="20" type="text" />
                     </div>
                     <div class="form-group">
 
                         <label for="SmartCreditFlag">Smart Credit Flag:</label>
-                        <input id="00N6g00000VAcsZ" name="SmartCreditFlag" type="checkbox" checked value="1"/>
+                        <input id="00N6g00000VAcsZ" name="SmartCreditFlag" type="checkbox" checked value="1" />
                     </div>
 
                     <input type="submit" name="submit" class="btn btn-primary ">
@@ -144,7 +148,8 @@
 
     </div>
 
-    
+
+
     <!-- Bootstrap core JS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -153,6 +158,7 @@
     <script src="js/persona.js"></script>
     <script src="js/solicitudCredito.js"></script>
     <script src="js/arrays.js"></script>
+    <script src="js/utils.js"></script>
 </body>
 
 </html>

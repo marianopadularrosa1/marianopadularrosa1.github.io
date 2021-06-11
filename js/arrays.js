@@ -1,10 +1,28 @@
+const situacionTributariaArray = [
+    "seleccione->",
+    "empleado",
+    "autonomo",
+    "monotributista",
+    "freelance",
+    "jubilado",
+    "otro",
+  ];
+  const estadoCivilArray = ["seleccione->", "soltero", "casado", "otro"];
+  const tarjetaCreditoArray = [
+    "seleccione->",
+    "visa",
+    "mastercard",
+    "naranja",
+    "cabal",
+    "otro",
+  ];
 const fieldsArrayForm = [
     { id: 1,  fieldId: "nombre", fieldType: "text" , element:"input",placeholder:"",innerHTML:"Nombre",class:""},
     { id: 2,  fieldId: "apellido", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
     { id: 3,  fieldId: "dni", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
     { id: 4,  fieldId: "telefono", fieldType: "number" , element:"input",placeholder:"",innerHTML:"",class:""},
     { id: 5,  fieldId: "direccion", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
-    { id: 6,  fieldId: "email", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
+    { id: 6,  fieldId: "email", fieldType: "email" , element:"input",placeholder:"",innerHTML:"",class:""},
     { id: 7,  fieldId: "fechaNacimiento", fieldType: "date" , element:"input",placeholder:"",innerHTML:"",class:""},
     { id: 8,  fieldId: "situacionTributaria", fieldType: "text" , element:"select",placeholder:"",innerHTML:"Situacion Tributaria",class:"form-control-sm form-control"},
     { id: 9,  fieldId: "ingresosMensuales", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:""},
