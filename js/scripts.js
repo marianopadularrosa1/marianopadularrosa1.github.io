@@ -14,6 +14,11 @@ const createForm = (arrayOfFields, parentNode) => {
       if (field.readonly == "true") {
         element.setAttribute("readonly", "true");
       }
+      if (field.required == "true") {
+        element.required= true;
+        //element.setAttribute("required","");
+      }
+
       formGroup.setAttribute("class", "form-group");
       label.setAttribute("for", field.fieldId);
       if (field.fieldType == "submit") {
