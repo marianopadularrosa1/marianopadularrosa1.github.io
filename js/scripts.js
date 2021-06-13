@@ -56,23 +56,32 @@ const mostrarForm = () => {
     loadSelect("estadoCivil", estadoCivilArray);
     loadSelect("tarjetaCredito", tarjetaCreditoArray);
     document.getElementById("valorProducto").value = getValorSeleccionado();
+    document.getElementById("nombreProducto").value = getProductoSeleccionado();
+    document.getElementById("fechaNacimiento").addEventListener('focusout' , validarEdad);
   } else {
     $("#myModal").modal("show");
   }
 };
 
+const validarEdad =(event)=>{
+    if(!getEsMayorDeEdad((document.getElementById("fechaNacimiento") || {}).value || "0")){
+      $("#modalMenor").modal("show");
+      document.getElementById("fechaNacimiento").style.borderColor = "red";
+      document.getElementById("fechaNacimiento").style.borderWidth = "1px";
+    }
+}
+
+
 /* Se invoca onclick del boton Elegir Forma Pago */
 const inputData = () => {
-  let formCuotas = document.getElementById("formCuotas");
-  let display = getComputedStyle(formCuotas).display;
-  if (display == "none") {
-    formCuotas.style.display = "block";
-  }
+  
   let dni = (document.getElementById("dni") || {}).value || "";
   let nombre = (document.getElementById("nombre") || {}).value || "";
   let apellido = (document.getElementById("apellido") || {}).value || "";
   let fechaNac = (document.getElementById("fechaNacimiento") || {}).value || "";
   let direccion = (document.getElementById("direccion") || {}).value || "";
+  let email = (document.getElementById("email") || {}).value || "";
+  let telefono = (document.getElementById("telefono") || {}).value || "";
   let situacionTributaria =
     (document.getElementById("situacionTributaria") || {}).value || "";
   let antiguedad = (document.getElementById("antiguedad") || {}).value || "";
@@ -88,44 +97,54 @@ const inputData = () => {
   let valorProducto = document.getElementById("valorProducto").value;
   /* Ejecucion - test */
 
-  /* Datos obtenidos del formulario  */
-  let p = new Persona(
-    nombre,
-    apellido,
-    direccion,
-    email,
-    telefono,
-    fechaNac,
-    situacionTributaria,
-    antiguedad,
-    estadoCivil,
-    ingresosMensuales,
-    ingresosMensualesPareja,
-    tarjetaCredito,
-    dni
-  );
-  p.getPuntajeTotal();
-
-  for (const propiedad in p) {
-    console.log(propiedad + ":" + p[propiedad]);
+  if(validarPersona(nombre,apellido,direccion,email,telefono,fechaNac,situacionTributaria,antiguedad,estadoCivil,ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni)){
+    /* Datos obtenidos del formulario  */
+    let p = new Persona(
+      nombre,
+      apellido,
+      direccion,
+      email,
+      telefono,
+      fechaNac,
+      situacionTributaria,
+      antiguedad,
+      estadoCivil,
+      ingresosMensuales,
+      ingresosMensualesPareja,
+      tarjetaCredito,
+      dni
+    );
+  
+    p.getPuntajeTotal();
+    for (const propiedad in p) {
+      console.log(propiedad + ":" + p[propiedad]);
+    }
+    /* Despues de la eleccion del producto y completado los datos se realiza la solicitud del credito */
+    let solicitudCredito = new SolicitudCredito(valorProducto);
+    solicitudCredito.getAnalisisPuntaje(p.puntajeTotal);
+    for (const propiedad in solicitudCredito) {
+      console.log(propiedad + ":" + solicitudCredito[propiedad]);
+    }
+  
+    loadSelect("selectCuotas", solicitudCredito.cuotas);
+    document.getElementById("montoCuota").value =
+      solicitudCredito.montoCuota != null ? solicitudCredito.montoCuota[0] : "0";
+    document.getElementById("montoConInteres").value =
+      solicitudCredito.montoConInteres;
+    guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
+  
+    let selectCuotas = document.getElementById("selectCuotas");
+    selectCuotas.addEventListener("change", updateMontoCuota);
+    let formCuotas = document.getElementById("formCuotas");
+    let display = getComputedStyle(formCuotas).display;
+    if (display == "none") {  formCuotas.style.display = "block"}
+    /*posicionar al form de cuotas */
+    $('html').animate({scrollTop: $("#formCuotas").offset().top},'slow');
+   
   }
-
-  /* Despues de la eleccion del producto y completado los datos se realiza la solicitud del credito */
-  let solicitudCredito = new SolicitudCredito(valorProducto);
-  solicitudCredito.getAnalisisPuntaje(p.puntajeTotal);
-  for (const propiedad in solicitudCredito) {
-    console.log(propiedad + ":" + solicitudCredito[propiedad]);
+  else{
+    $("#modalPersonaNoValida").modal("show");
   }
-
-  loadSelect("selectCuotas", solicitudCredito.cuotas);
-  document.getElementById("montoCuota").value =
-    solicitudCredito.montoCuota != null ? solicitudCredito.montoCuota[0] : "0";
-  document.getElementById("montoConInteres").value =
-    solicitudCredito.montoConInteres;
-  guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
-
-  let selectCuotas = document.getElementById("selectCuotas");
-  selectCuotas.addEventListener("change", updateMontoCuota);
 };
 
 updateMontoCuota = (event) => {
@@ -136,6 +155,70 @@ updateMontoCuota = (event) => {
   }
 };
 
+/*validacion datos de la persona */
+const validarPersona=(nombre,apellido,direccion,email,telefono,fechaNac,situacionTributaria,antiguedad,estadoCivil,ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni)=>{
+ 
+  let personaValida=true;
+  if(nombre==""){
+    document.getElementById("nombre").style.borderColor = "red";
+    document.getElementById("nombre").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(apellido==""){
+    document.getElementById("apellido").style.borderColor = "red";
+    document.getElementById("apellido").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(direccion==""){
+    document.getElementById("direccion").style.borderColor = "red";
+    document.getElementById("direccion").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(telefono==""){
+    document.getElementById("telefono").style.borderColor = "red";
+    document.getElementById("telefono").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(email=="" || (email.toString().split("@").length) !=2 ){
+    document.getElementById("email").style.borderColor = "red";
+    document.getElementById("email").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(dni=="" ){
+    document.getElementById("dni").style.borderColor = "red";
+    document.getElementById("dni").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(fechaNac=="" || !getEsMayorDeEdad(fechaNac) ){
+    document.getElementById("fechaNacimiento").style.borderColor = "red";
+    document.getElementById("fechaNacimiento").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(ingresosMensuales=="" ){
+    document.getElementById("ingresosMensuales").style.borderColor = "red";
+    document.getElementById("ingresosMensuales").style.borderWidth = "1px";
+    personaValida=false;
+  }
+  if(personaValida){
+    $('#inputForm>div').children(".form-control").css('border-color','grey');
+    $('#inputForm>div').children(".form-control").prop("readonly", true);
+    $('#inputForm>div>select').attr("disabled", true);
+    
+  }
+  return personaValida;
+}
+
+getEdad=  (fechaNacimiento) =>{
+  const anioNac= (parseDate(fechaNacimiento)).getFullYear() ;
+  const today =new Date().getFullYear();
+  const ageDifMs = today - anioNac;
+  return ageDifMs;
+}
+getEsMayorDeEdad = (fechaNacimiento)=>{
+  let edad =  getEdad(fechaNacimiento);
+  if(edad >=18 )return true;
+  else return false;
+}
 
 /* Inicializa productos de cada html */
 function inicializarProd() {
@@ -146,16 +229,20 @@ function inicializarProd() {
     createProductos(arrayOfSmartphones, productos);
     createFooter();
     createModal();
+    createModalPersona();
+    createModalMenor();
   } else if (htmlActual == "tecno.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfTecno, productos);
     createFooter();
     createModal();
+    createModalPersona();createModalMenor();
   } else if (htmlActual == "xp.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfXP, productos);
     createFooter();
     createModal();
+    createModalPersona();createModalMenor();
   }
 }
 /*Cuando se carga la pagina onload */
@@ -172,7 +259,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 updateValorProducto = (event) => {
   if (document.getElementById("valorProducto") != null) {
     document.getElementById("valorProducto").value = event.target.value;
+    document.getElementById("nombreProducto").value = event.target.id;
     guardarSession("valorProducto", event.target.value);
+    guardarSession("nombreProducto", event.target.id);
   }
 };
 
@@ -184,6 +273,12 @@ function unselect() {
 let getValorSeleccionado = () => {
   if (document.querySelector("[name=radio]:checked") != null) {
     return document.querySelector("[name=radio]:checked").value;
+  }
+};
+/* obtener el radio seleccionado */
+let getProductoSeleccionado = () => {
+  if (document.querySelector("[name=radio]:checked") != null) {
+    return document.querySelector("[name=radio]:checked").id;
   }
 };
 
@@ -283,6 +378,62 @@ createModal = () => {
 
     document.body.appendChild(modal);
 };
+
+createModalPersona = () => {
+  let modal = document.createElement("div");
+  modal.setAttribute("class", "modal fade");
+  modal.setAttribute("id", "modalPersonaNoValida");
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("data-bs-backdrop","static");
+  modal.setAttribute("data-bs-keyboard","false");
+  modal.innerHTML = `<!-- Modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <p>Complete todos los datos obligatorios antes de avanzar</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>`;
+
+    document.body.appendChild(modal);
+};
+
+createModalMenor = () => {
+  let modal = document.createElement("div");
+  modal.setAttribute("class", "modal fade");
+  modal.setAttribute("id", "modalMenor");
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("data-bs-backdrop","static");
+  modal.setAttribute("data-bs-keyboard","false");
+  modal.innerHTML = `<!-- Modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <p>Debe ser mayor de 18 años para solicitar un Credito</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>`;
+
+    document.body.appendChild(modal);
+};
 addCSS=(parentNode)=>{
     let link1 = document.createElement('link');
     let link2 = document.createElement('link');
@@ -313,3 +464,11 @@ addCSS=(parentNode)=>{
     parentNode.appendChild(link6);
     parentNode.appendChild(link7);
 }
+
+
+$("#button1").click(function() {
+  $('html').animate({
+      scrollTop: $("#inputForm").offset().top},
+      'slow');
+});
+
