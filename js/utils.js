@@ -26,3 +26,104 @@ const loadSelect = (elementId, arrayOfData) => {
   removeOptions = (selectElement) => {
     $(selectElement).empty();
   };
+
+  getEdad=  (fechaNacimiento) =>{
+    const anioNac= (parseDate(fechaNacimiento)).getFullYear() ;
+    const today =new Date().getFullYear();
+    const ageDifMs = today - anioNac;
+    return ageDifMs;
+  }
+  getEsMayorDeEdad = (fechaNacimiento)=>{
+    let edad =  getEdad(fechaNacimiento);
+    if(edad >=18 )return true;
+    else return false;
+  }
+  function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    return new Date(parts[0], parts[1] - 1, parts[2]); // months are 0-based
+  }
+
+  addCSS=(parentNode)=>{
+    let link1 = document.createElement('link');
+    let link2 = document.createElement('link');
+    let link3 = document.createElement('link');
+    let link4 = document.createElement('link');
+    let link5 = document.createElement('link');
+    let link6 = document.createElement('link');
+    let link7 = document.createElement('link');
+    link1.setAttribute("href","/css/styles.css");
+    link2.setAttribute("href","/assets/css/style.css");
+    link3.setAttribute("href","/assets/vendor/aos/aos.css");
+    link4.setAttribute("href","/assets/vendor/bootstrap-icons/bootstrap-icons.css");
+    link5.setAttribute("href","/assets/vendor/boxicons/css/boxicons.min.css");
+    link6.setAttribute("href","/assets/vendor/glightbox/css/glightbox.min.css");
+    link7.setAttribute("href","/assets/vendor/swiper/swiper-bundle.min.css");
+    link1.setAttribute("rel","stylesheet");
+    link2.setAttribute("rel","stylesheet");
+    link3.setAttribute("rel","stylesheet");
+    link4.setAttribute("rel","stylesheet");
+    link5.setAttribute("rel","stylesheet");
+    link6.setAttribute("rel","stylesheet");
+    link7.setAttribute("rel","stylesheet");
+    parentNode.appendChild(link1);
+    parentNode.appendChild(link2);
+    parentNode.appendChild(link3);
+    parentNode.appendChild(link4);
+    parentNode.appendChild(link5);
+    parentNode.appendChild(link6);
+    parentNode.appendChild(link7);
+}
+updateMontoCuota = (event) => {
+  if (document.getElementById("selectCuotas") != null) {
+    let sc = JSON.parse(sessionStorage.getItem("solicitudCredito"));
+    let idMonto = sc.cuotas.indexOf(parseInt(event.target.value));
+    document.getElementById("montoCuota").value = sc.montoCuota[idMonto];
+  }
+};
+/* actualiza el valor del producto cuando el user cambia la seleccion del producto */
+updateValorProducto = (event) => {
+  if (document.getElementById("valorProducto") != null) {
+    document.getElementById("valorProducto").value = event.target.value;
+    document.getElementById("nombreProducto").value = event.target.id;
+    guardarSession("valorProducto", event.target.value);
+    guardarSession("nombreProducto", event.target.id);
+  }
+};
+/* solo se podra un producto a la vez antes de solicitar el credito */
+function unselect() {
+  document.querySelectorAll("[name=radio]").forEach((x) => (x.checked = false));
+}
+/* obtener el radio seleccionado */
+let getValorSeleccionado = () => {
+  if (document.querySelector("[name=radio]:checked") != null) {
+    return document.querySelector("[name=radio]:checked").value;
+  }
+};
+/* obtener el radio seleccionado */
+let getProductoSeleccionado = () => {
+  if (document.querySelector("[name=radio]:checked") != null) {
+    return document.querySelector("[name=radio]:checked").id;
+  }
+};
+//Crea el footer de cada pagina
+createFooter = () => {
+  let footer = document.createElement("footer");
+  footer.setAttribute("id", "footer");
+  footer.setAttribute("class", "footer");
+  let div = document.createElement("div");
+  div.setAttribute("class", "container py-4");
+  let div2 = document.createElement("div");
+  div2.setAttribute("class", "copyright");
+  div2.innerHTML =
+    "&copy; Copyright <strong><span>SmartCredit</span></strong>. All Rights Reserved";
+  let div3 = document.createElement("div");
+  let div4 = document.createElement("div");
+  div4.innerHTML = `<div class="icon"><i class="bx bx-mobile"></i></div>`;
+  div3.setAttribute("class", "credits");
+  div3.innerHTML = "Designed by <strong><span>MP</span></strong>";
+  div.appendChild(div2);
+  div.appendChild(div3);
+  div.appendChild(div4);
+  footer.appendChild(div);
+  document.body.appendChild(footer);
+};
