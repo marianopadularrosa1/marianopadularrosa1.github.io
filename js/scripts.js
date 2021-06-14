@@ -1,5 +1,13 @@
 /*Cuando se carga la pagina onload */
 document.addEventListener("DOMContentLoaded", function (event) {
+  AOS.init();
+  if($("#button1").length==1){
+    $("#button1").click(function() {
+      $('html').animate({
+          scrollTop: $("#inputForm").offset().top},
+          'slow');
+    });
+  }
   /*inicializacion de productos */
   inicializarProd();
   let myRadios = document.querySelectorAll("[name=radio]");
@@ -190,6 +198,7 @@ function inicializarProd() {
 
 /* crea las cards con cada producto basandose en un array */
 const createProductos = (arrayOfCards, parentNode) => {
+  let delayOfCard=200;
   for (const card of arrayOfCards) {
     let divPpal = document.createElement("div");
     let div2 = document.createElement("div");
@@ -201,7 +210,8 @@ const createProductos = (arrayOfCards, parentNode) => {
     let label = document.createElement("label");
     divPpal.setAttribute("class", "col-lg-4 col-md-6 mb-4");
     divPpal.setAttribute("data-aos", "fade-up");
-    divPpal.setAttribute("data-aos-delay", "300");
+    divPpal.setAttribute("data-aos-delay", delayOfCard);
+    delayOfCard = delayOfCard +100;
     div2.setAttribute("class", "card h-100");
     img.setAttribute("height", "250px");
     img.setAttribute("class", "card-img-top");
@@ -236,14 +246,7 @@ const createProductos = (arrayOfCards, parentNode) => {
 
 
 $(document).ready(function () {
-  AOS.init();
-  if($("#button1").length==1){
-    $("#button1").click(function() {
-      $('html').animate({
-          scrollTop: $("#inputForm").offset().top},
-          'slow');
-    });
-  }
+ 
 });
 
 
