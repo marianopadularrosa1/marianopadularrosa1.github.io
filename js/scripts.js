@@ -1,11 +1,14 @@
 /*Cuando se carga la pagina onload */
 document.addEventListener("DOMContentLoaded", function (event) {
   AOS.init();
-  if($("#button1").length==1){
-    $("#button1").click(function() {
-      $('html').animate({
-          scrollTop: $("#inputForm").offset().top},
-          'slow');
+  if ($("#button1").length == 1) {
+    $("#button1").click(function () {
+      $("html").animate(
+        {
+          scrollTop: $("#inputForm").offset().top,
+        },
+        "slow"
+      );
     });
   }
   /*inicializacion de productos */
@@ -28,18 +31,18 @@ const mostrarForm = () => {
     let display = getComputedStyle(inputDiv).display;
     if (display == "none") inputDiv.style.display = "block";
 
-   
     loadSelect("situacionTributaria", situacionTributariaArray);
     loadSelect("estadoCivil", estadoCivilArray);
     loadSelect("tarjetaCredito", tarjetaCreditoArray);
     document.getElementById("valorProducto").value = getValorSeleccionado();
     document.getElementById("nombreProducto").value = getProductoSeleccionado();
-    document.getElementById("fechaNacimiento").addEventListener('focusout' , validarEdad);
+    document
+      .getElementById("fechaNacimiento")
+      .addEventListener("focusout", validarEdad);
   } else {
     $("#myModal").modal("show");
   }
 };
-
 
 const createForm = (arrayOfFields, parentNode) => {
   if (parentNode.childNodes.length == 1) {
@@ -56,7 +59,7 @@ const createForm = (arrayOfFields, parentNode) => {
         element.setAttribute("readonly", "true");
       }
       if (field.required == "true") {
-        element.required= true;
+        element.required = true;
         //element.setAttribute("required","");
       }
 
@@ -78,15 +81,8 @@ const createForm = (arrayOfFields, parentNode) => {
   }
 };
 
-
-
-
-
-
-
 /* Se invoca onclick del boton Elegir Forma Pago */
 const inputData = () => {
-  
   let dni = (document.getElementById("dni") || {}).value || "";
   let nombre = (document.getElementById("nombre") || {}).value || "";
   let apellido = (document.getElementById("apellido") || {}).value || "";
@@ -109,7 +105,23 @@ const inputData = () => {
   let valorProducto = document.getElementById("valorProducto").value;
   /* Ejecucion - test */
 
-  if(validarPersona(nombre,apellido,direccion,email,telefono,fechaNac,situacionTributaria,antiguedad,estadoCivil,ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni)){
+  if (
+    validarPersona(
+      nombre,
+      apellido,
+      direccion,
+      email,
+      telefono,
+      fechaNac,
+      situacionTributaria,
+      antiguedad,
+      estadoCivil,
+      ingresosMensuales,
+      ingresosMensualesPareja,
+      tarjetaCredito,
+      dni
+    )
+  ) {
     /* Datos obtenidos del formulario  */
     let p = new Persona(
       nombre,
@@ -126,7 +138,7 @@ const inputData = () => {
       tarjetaCredito,
       dni
     );
-  
+
     p.getPuntajeTotal();
     for (const propiedad in p) {
       console.log(propiedad + ":" + p[propiedad]);
@@ -137,38 +149,35 @@ const inputData = () => {
     for (const propiedad in solicitudCredito) {
       console.log(propiedad + ":" + solicitudCredito[propiedad]);
     }
-  
+
     loadSelect("selectCuotas", solicitudCredito.cuotas);
     document.getElementById("montoCuota").value =
-      solicitudCredito.montoCuota != null ? solicitudCredito.montoCuota[0] : "0";
+      solicitudCredito.montoCuota != null
+        ? solicitudCredito.montoCuota[0]
+        : "0";
     document.getElementById("montoConInteres").value =
       solicitudCredito.montoConInteres;
     guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
-  
+
     let selectCuotas = document.getElementById("selectCuotas");
     selectCuotas.addEventListener("change", updateMontoCuota);
     let formCuotas = document.getElementById("formCuotas");
     let display = getComputedStyle(formCuotas).display;
-    if (display == "none") {formCuotas.style.display = "block"}
+    if (display == "none") {
+      formCuotas.style.display = "block";
+    }
     /*posicionar al form de cuotas */
-    $('html').animate({scrollTop: $("#formCuotas").offset().top},'slow');
-   
-  }
-  else{
+    $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
+  } else {
     $("#modalPersonaNoValida").modal("show");
   }
 };
 
-
-
-
-
-
-
 /* Inicializa productos de cada html */
 function inicializarProd() {
   //obtengo el html actual que navego para crear los productos correspondientes
-  let htmlActual =  document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+  let htmlActual =
+    document.documentURI.split("/")[document.documentURI.split("/").length - 1];
   if (htmlActual == "smartphone.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfSmartphones, productos);
@@ -181,24 +190,21 @@ function inicializarProd() {
     createProductos(arrayOfTecno, productos);
     createFooter();
     createModal();
-    createModalPersona();createModalMenor();
+    createModalPersona();
+    createModalMenor();
   } else if (htmlActual == "xp.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfXP, productos);
     createFooter();
     createModal();
-    createModalPersona();createModalMenor();
+    createModalPersona();
+    createModalMenor();
   }
 }
 
-
-
-
-
-
 /* crea las cards con cada producto basandose en un array */
 const createProductos = (arrayOfCards, parentNode) => {
-  let delayOfCard=200;
+  let delayOfCard = 200;
   for (const card of arrayOfCards) {
     let divPpal = document.createElement("div");
     let div2 = document.createElement("div");
@@ -211,7 +217,7 @@ const createProductos = (arrayOfCards, parentNode) => {
     divPpal.setAttribute("class", "col-lg-4 col-md-6 mb-4");
     divPpal.setAttribute("data-aos", "fade-up");
     divPpal.setAttribute("data-aos-delay", delayOfCard);
-    delayOfCard = delayOfCard +100;
+    delayOfCard = delayOfCard + 100;
     div2.setAttribute("class", "card h-100");
     img.setAttribute("height", "250px");
     img.setAttribute("class", "card-img-top");
@@ -243,11 +249,4 @@ const createProductos = (arrayOfCards, parentNode) => {
   }
 };
 
-
-
-$(document).ready(function () {
- 
-});
-
-
- 
+$(document).ready(function () {});

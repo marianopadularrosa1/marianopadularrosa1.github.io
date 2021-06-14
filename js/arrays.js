@@ -32,7 +32,7 @@ const fieldsArrayForm = [
     { id: 13,  fieldId: "ingresosMensualesPareja", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control"},
     { id: 14,  fieldId: "valorProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control",readonly:"true"},
     { id: 15,  fieldId: "nombreProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control",readonly:"true"},
-    { id: 16,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary", value:"Elegir Forma de Pago", onclick:"inputData()"},
+    { id: 16,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary mt-auto", value:"Elegir Forma de Pago", onclick:"inputData()"},
    ];
 const fieldsArrayElegirFormaPago = [
     { id: 1,  fieldId: "selectCuotas", fieldType: "test" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
