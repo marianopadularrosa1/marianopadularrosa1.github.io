@@ -200,6 +200,8 @@ const createProductos = (arrayOfCards, parentNode) => {
     let input = document.createElement("input");
     let label = document.createElement("label");
     divPpal.setAttribute("class", "col-lg-4 col-md-6 mb-4");
+    divPpal.setAttribute("data-aos", "fade-up");
+    divPpal.setAttribute("data-aos-delay", "300");
     div2.setAttribute("class", "card h-100");
     img.setAttribute("height", "250px");
     img.setAttribute("class", "card-img-top");
@@ -234,6 +236,7 @@ const createProductos = (arrayOfCards, parentNode) => {
 
 
 $(document).ready(function () {
+  AOS.init();
   if($("#button1").length==1){
     $("#button1").click(function() {
       $('html').animate({
@@ -244,3 +247,4 @@ $(document).ready(function () {
 });
 
 
+ 
