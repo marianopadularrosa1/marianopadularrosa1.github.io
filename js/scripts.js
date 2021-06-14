@@ -1,6 +1,5 @@
 /*Cuando se carga la pagina onload */
 document.addEventListener("DOMContentLoaded", function (event) {
-  addCSS(document.body);
   /*inicializacion de productos */
   inicializarProd();
   let myRadios = document.querySelectorAll("[name=radio]");
@@ -234,12 +233,14 @@ const createProductos = (arrayOfCards, parentNode) => {
 
 
 
-
-
-
-$("#button1").click(function() {
-  $('html').animate({
-      scrollTop: $("#inputForm").offset().top},
-      'slow');
+$(document).ready(function () {
+  if($("#button1").length==1){
+    $("#button1").click(function() {
+      $('html').animate({
+          scrollTop: $("#inputForm").offset().top},
+          'slow');
+    });
+  }
 });
+
 
