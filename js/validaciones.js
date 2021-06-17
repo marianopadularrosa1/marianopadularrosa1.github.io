@@ -5,6 +5,14 @@ const validarEdad =(event)=>{
       document.getElementById("fechaNacimiento").style.borderWidth = "1px";
     }
 }
+let emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+const validarEmail =(event)=>{
+    if((document.getElementById("email").value=="") || !emailReg.test(document.getElementById("email").value) ){
+      $("#modalEmail").modal("show");
+      document.getElementById("email").style.borderColor = "red";
+      document.getElementById("email").style.borderWidth = "1px";
+    }
+}
 
 /*validacion datos de la persona */
 const validarPersona=(nombre,apellido,direccion,email,telefono,fechaNac,situacionTributaria,antiguedad,estadoCivil,ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni)=>{
@@ -30,7 +38,7 @@ const validarPersona=(nombre,apellido,direccion,email,telefono,fechaNac,situacio
       document.getElementById("telefono").style.borderWidth = "1px";
       personaValida=false;
     }
-    if(email=="" || (email.toString().split("@").length) !=2 ){
+    if(email=="" ||  !emailReg.test(email) ){
       document.getElementById("email").style.borderColor = "red";
       document.getElementById("email").style.borderWidth = "1px";
       personaValida=false;
@@ -51,8 +59,18 @@ const validarPersona=(nombre,apellido,direccion,email,telefono,fechaNac,situacio
       personaValida=false;
     }
     if(personaValida){
-      $('#inputForm>div').children(".form-control").css('border-color','grey');
+      //Si la persona es valida se bloquea el form y se ponen en verde todos los campos validos
+      $('#inputForm>div').children(".form-control").css('border-color','green');
       $('#inputForm>div').children(".form-control").prop("readonly", true);
+      $('#inputForm>div').children(':input[type="submit"]').prop('disabled', true);
+      $('#button1').prop('disabled', true);
+      $('#inputForm>div').children().each(function() {
+        if($(this).val()!="" && $(this).val()!="seleccione->"){
+          let div = document.createElement("div");
+          div.innerHTML = `<i class="bi bi-check2"></i>`;
+          $(this).parent().append(div);
+        }
+      })
       $('#inputForm>div>select').attr("disabled", true);
       $('input[name=radio]').attr("disabled",true);
       

@@ -36,9 +36,8 @@ const mostrarForm = () => {
     loadSelect("tarjetaCredito", tarjetaCreditoArray);
     document.getElementById("valorProducto").value = getValorSeleccionado();
     document.getElementById("nombreProducto").value = getProductoSeleccionado();
-    document
-      .getElementById("fechaNacimiento")
-      .addEventListener("focusout", validarEdad);
+    document.getElementById("fechaNacimiento").addEventListener("focusout", validarEdad);
+    document.getElementById("email").addEventListener("focusout", validarEmail);
   } else {
     $("#myModal").modal("show");
   }
@@ -48,6 +47,8 @@ const createForm = (arrayOfFields, parentNode) => {
   if (parentNode.childNodes.length == 1) {
     for (const field of arrayOfFields) {
       let formGroup = document.createElement("div");
+      formGroup.setAttribute("class", "form-group");
+      formGroup.setAttribute("id", `form-group${field.fieldId}`);
       let label = document.createElement("label");
       let element = document.createElement(field.element);
       element.setAttribute("id", field.fieldId);
@@ -60,10 +61,11 @@ const createForm = (arrayOfFields, parentNode) => {
       }
       if (field.required == "true") {
         element.required = true;
-        //element.setAttribute("required","");
       }
-
-      formGroup.setAttribute("class", "form-group");
+      if (field.placeholder != "") {
+        element.setAttribute("placeholder", field.placeholder);
+      }
+      
       label.setAttribute("for", field.fieldId);
       if (field.fieldType == "submit") {
         element.setAttribute("value", field.value);
@@ -185,20 +187,21 @@ function inicializarProd() {
     createModal();
     createModalPersona();
     createModalMenor();
+    createModalEmail();
   } else if (htmlActual == "tecno.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfTecno, productos);
     createFooter();
     createModal();
     createModalPersona();
-    createModalMenor();
+    createModalMenor();createModalEmail();
   } else if (htmlActual == "xp.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfXP, productos);
     createFooter();
     createModal();
     createModalPersona();
-    createModalMenor();
+    createModalMenor();createModalEmail();
   }
 }
 

@@ -81,3 +81,31 @@ createModal = () => {
   
       document.body.appendChild(modal);
   };
+
+  createModalEmail = () => {
+    let modal = document.createElement("div");
+    modal.setAttribute("class", "modal fade");
+    modal.setAttribute("id", "modalEmail");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("data-bs-backdrop","static");
+    modal.setAttribute("data-bs-keyboard","false");
+    modal.innerHTML = `<!-- Modal -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <p>Ingrese un EMAIL Válido</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>`;
+  
+      document.body.appendChild(modal);
+  };
