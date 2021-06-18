@@ -166,7 +166,8 @@ const inputData = () => {
     let formCuotas = document.getElementById("formCuotas");
     let display = getComputedStyle(formCuotas).display;
     if (display == "none") {
-      formCuotas.style.display = "block";
+      //formCuotas.style.display = "block";
+      $("#formCuotas").slideDown(2000);
     }
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
