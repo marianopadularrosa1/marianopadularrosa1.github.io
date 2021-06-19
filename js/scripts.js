@@ -253,4 +253,3 @@ const createProductos = (arrayOfCards, parentNode) => {
   }
 };
 
-$(document).ready(function () {});
