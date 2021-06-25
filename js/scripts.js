@@ -154,11 +154,8 @@ const inputData = () => {
 
     loadSelect("selectCuotas", solicitudCredito.cuotas);
     document.getElementById("montoCuota").value =
-      solicitudCredito.montoCuota != null
-        ? solicitudCredito.montoCuota[0]
-        : "0";
-    document.getElementById("montoConInteres").value =
-      solicitudCredito.montoConInteres;
+      solicitudCredito.montoCuota != null ? solicitudCredito.montoCuota[0]: "0";
+    document.getElementById("montoConInteres").value = solicitudCredito.montoConInteres;
     guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
 
     let selectCuotas = document.getElementById("selectCuotas");
@@ -166,8 +163,10 @@ const inputData = () => {
     let formCuotas = document.getElementById("formCuotas");
     let display = getComputedStyle(formCuotas).display;
     if (display == "none") {
-      //formCuotas.style.display = "block";
       $("#formCuotas").slideDown(2000);
+      $("#enviar").on('click',(solicitudCredito, persona)=> {
+        sendForm (solicitudCredito,p);
+      });
     }
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
@@ -253,3 +252,23 @@ const createProductos = (arrayOfCards, parentNode) => {
   }
 };
 
+const sendForm =(solicitudCredito,persona)=>{
+  const APIURL = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8' ; 
+  
+  let oid="00D6g000006uh5n";
+  let retURL="https://marianopadularrosa1.github.io/";
+  let l ="SmartCreditScoring";
+  const infoPost =  { "00N6g00000VAcrR": persona.puntajeTotal, oid: "00D6g000006uh5n", "first_name":persona.nombre, "last_name":persona.apellido, "email":persona.email, "00N6g00000VAcrH":persona.ingresosMensuales }
+  $.ajax({
+    method: "POST",
+    headers: {
+      'Access-Control-Allow-Origin' : '*'
+      },
+    url:  APIURL,
+    data: infoPost,
+    success: function(respuesta){
+        $("body").append(`<div>${respuesta.nombre}</div>`);
+    }
+});
+
+}
