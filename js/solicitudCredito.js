@@ -10,6 +10,7 @@ class SolicitudCredito{
         this.montoConInteres=0;
         this.topeMaximo = 0;
         this.preAprobado=false;
+        this.producto="";
     }
     getAnalisisPuntaje =  (puntaje)=>{
         if(puntaje<=5 && puntaje>0){this.setInteresCuotasTopeByPuntaje(40,[3,6],50000)}

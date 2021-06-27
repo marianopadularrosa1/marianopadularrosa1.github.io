@@ -36,7 +36,9 @@ const mostrarForm = () => {
     loadSelect("tarjetaCredito", tarjetaCreditoArray);
     document.getElementById("valorProducto").value = getValorSeleccionado();
     document.getElementById("nombreProducto").value = getProductoSeleccionado();
-    document.getElementById("fechaNacimiento").addEventListener("focusout", validarEdad);
+    document
+      .getElementById("fechaNacimiento")
+      .addEventListener("focusout", validarEdad);
     document.getElementById("email").addEventListener("focusout", validarEmail);
   } else {
     $("#myModal").modal("show");
@@ -65,7 +67,7 @@ const createForm = (arrayOfFields, parentNode) => {
       if (field.placeholder != "") {
         element.setAttribute("placeholder", field.placeholder);
       }
-      
+
       label.setAttribute("for", field.fieldId);
       if (field.fieldType == "submit") {
         element.setAttribute("value", field.value);
@@ -154,22 +156,28 @@ const inputData = () => {
 
     loadSelect("selectCuotas", solicitudCredito.cuotas);
     document.getElementById("montoCuota").value =
-      solicitudCredito.montoCuota != null ? solicitudCredito.montoCuota[0]: "0";
-    document.getElementById("montoConInteres").value = solicitudCredito.montoConInteres;
+      solicitudCredito.montoCuota != null
+        ? solicitudCredito.montoCuota[0]
+        : "0";
+    document.getElementById("montoConInteres").value =
+      solicitudCredito.montoConInteres;
+    let nombreProducto = document.getElementById("nombreProducto").value;
+    solicitudCredito.nombreProducto = nombreProducto;
     guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
 
     let selectCuotas = document.getElementById("selectCuotas");
     selectCuotas.addEventListener("change", updateMontoCuota);
     let formCuotas = document.getElementById("formCuotas");
+
     let display = getComputedStyle(formCuotas).display;
     if (display == "none") {
       $("#formCuotas").slideDown(2000);
-      $("#enviar").on('click',(solicitudCredito, persona)=> {
-        sendForm (solicitudCredito,p);
-      });
     }
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
+    $("#enviar").on("click", () => {
+      sendForm(solicitudCredito, p);
+    });
   } else {
     $("#modalPersonaNoValida").modal("show");
   }
@@ -194,14 +202,16 @@ function inicializarProd() {
     createFooter();
     createModal();
     createModalPersona();
-    createModalMenor();createModalEmail();
+    createModalMenor();
+    createModalEmail();
   } else if (htmlActual == "xp.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfXP, productos);
     createFooter();
     createModal();
     createModalPersona();
-    createModalMenor();createModalEmail();
+    createModalMenor();
+    createModalEmail();
   }
 }
 
@@ -252,23 +262,44 @@ const createProductos = (arrayOfCards, parentNode) => {
   }
 };
 
-const sendForm =(solicitudCredito,persona)=>{
-  const APIURL = 'https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8' ; 
-  
-  let oid="00D6g000006uh5n";
-  let retURL="https://marianopadularrosa1.github.io/";
-  let l ="SmartCreditScoring";
-  const infoPost =  { "00N6g00000VAcrR": persona.puntajeTotal, oid: "00D6g000006uh5n", "first_name":persona.nombre, "last_name":persona.apellido, "email":persona.email, "00N6g00000VAcrH":persona.ingresosMensuales }
+const sendForm = (solicitudCredito, persona) => {
+  $("#enviar").prop("disabled", true);
+  const APIURL =
+    "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
+
+  const infoPost = {
+    "00N6g00000VAcrR": persona.puntajeTotal, //scoring
+    oid: "00D6g000006uh5n", //Objeto Lead
+    first_name: persona.nombre,
+    last_name: persona.apellido,
+    email: persona.email,
+    "00N6g00000VAcrH": persona.ingresosMensuales, //salary
+    "00N6g00000VAcrM": persona.ingresosMensualesPareja, //SalaryOfCouple
+    "00N6g00000VAcrW": solicitudCredito.nombreProducto, //SelectedProduct
+    "00N6g00000VAcrb": persona.preAprobado, //preapproved
+    "00N6g00000VAcrg": persona.fechaNacimiento, //BirthDate
+    "00N6g00000VAcrl": persona.dni,
+    "00N6g00000VAcrv": persona.situacionTributaria,
+    "00N6g00000VAcs5": persona.estadoCivil,
+    "00N6g00000VAcsA": persona.tarjetaCredito,
+    "00N6g00000VAcsF": solicitudCredito.montoConInteres, //valorProd
+    "00N6g00000VAcsK": persona.antiguedad, //antiguedad
+    "00N6g00000VAcsU": persona.direccion, //Address
+    "00N6g00000VAcsZ": true, //SmartCreditFlag
+    currency: "ARS",
+    LeadSource: "Web",
+    mobile: persona.telefono,
+    phone: persona.telefono,
+    "00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
+    "00N6g00000VAyYv": solicitudCredito.montoCuota
+  };
   $.ajax({
     method: "POST",
-    headers: {
-      'Access-Control-Allow-Origin' : '*'
-      },
-    url:  APIURL,
+    url: APIURL,
     data: infoPost,
-    success: function(respuesta){
-        $("body").append(`<div>${respuesta.nombre}</div>`);
-    }
-});
-
-}
+    retURL: "https://marianopadularrosa1.github.io/",
+    success: function (respuesta) {
+      $("body").append(`<div>${respuesta.nombre}</div>`);
+    },
+  });
+};
