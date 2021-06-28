@@ -175,7 +175,12 @@ const inputData = () => {
     }
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
-    $("#enviar").on("click", () => {
+    $("#enviar").on("click", (e) => {
+      e.preventDefault();
+      console.log("selectCoutas: "+$( "#selectCuotas :selected" ).text());
+      solicitudCredito.cuotasElegidas = $( "#selectCuotas :selected" ).text();
+      solicitudCredito.montoCuota = $( "#montoCuota :selected" ).text();
+      solicitudCredito.montoConInteres = document.getElementById("montoConInteres").value;
       sendForm(solicitudCredito, p);
     });
   } else {
@@ -196,6 +201,7 @@ function inicializarProd() {
     createModalPersona();
     createModalMenor();
     createModalEmail();
+    createModalSolicitudProcesada();
   } else if (htmlActual == "tecno.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfTecno, productos);
@@ -204,6 +210,7 @@ function inicializarProd() {
     createModalPersona();
     createModalMenor();
     createModalEmail();
+    createModalSolicitudProcesada();
   } else if (htmlActual == "xp.html") {
     let productos = document.getElementById("productos");
     createProductos(arrayOfXP, productos);
@@ -212,6 +219,7 @@ function inicializarProd() {
     createModalPersona();
     createModalMenor();
     createModalEmail();
+    createModalSolicitudProcesada();
   }
 }
 
@@ -263,7 +271,7 @@ const createProductos = (arrayOfCards, parentNode) => {
 };
 
 const sendForm = (solicitudCredito, persona) => {
-  $("#enviar").prop("disabled", true);
+  //$("#enviar").prop("disabled", true);
   const APIURL =
     "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 
@@ -287,7 +295,7 @@ const sendForm = (solicitudCredito, persona) => {
     "00N6g00000VAcsU": persona.direccion, //Address
     "00N6g00000VAcsZ": true, //SmartCreditFlag
     currency: "ARS",
-    LeadSource: "Web",
+    lead_source: "Web",
     mobile: persona.telefono,
     phone: persona.telefono,
     "00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
@@ -298,8 +306,20 @@ const sendForm = (solicitudCredito, persona) => {
     url: APIURL,
     data: infoPost,
     retURL: "https://marianopadularrosa1.github.io/",
-    success: function (respuesta) {
-      $("body").append(`<div>${respuesta.nombre}</div>`);
+    Headers:{
+      "REQUIRES_AUTH":"1"
     },
+    success: function (respuesta) {
+      let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+      let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+      $('#modalSolicitudProcesada').modal("show");
+      //window.location.href = htmlDestino;
+    },
+    error: function(errorThrown) {
+      let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+      let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+      $('#modalSolicitudProcesada').modal("show");
+      //window.location.href = htmlDestino;
+   }
   });
 };

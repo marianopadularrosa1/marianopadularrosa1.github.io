@@ -35,7 +35,7 @@ const fieldsArrayForm = [
     { id: 16,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary mt-auto", value:"Elegir Forma de Pago", onclick:"inputData()"},
    ];
 const fieldsArrayElegirFormaPago = [
-    { id: 1,  fieldId: "selectCuotas", fieldType: "test" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
+    { id: 1,  fieldId: "selectCuotas", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
     { id: 2,  fieldId: "montoCuota", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:"",readonly:"true"},
     { id: 3,  fieldId: "montoConInteres", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:"",readonly:"true"},
     { id: 4,  fieldId: "enviar", fieldType: "submit" , element:"input",placeholder:"enviar",innerHTML:"enviar",class:"btn btn-primary", value:"Enviar", onclick:"inputData()"},

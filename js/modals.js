@@ -109,3 +109,30 @@ createModal = () => {
   
       document.body.appendChild(modal);
   };
+  createModalSolicitudProcesada = () => {
+    let modal = document.createElement("div");
+    modal.setAttribute("class", "modal fade");
+    modal.setAttribute("id", "modalSolicitudProcesada");
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("data-bs-backdrop","static");
+    modal.setAttribute("data-bs-keyboard","false");
+    modal.innerHTML = `<!-- Modal -->
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <p>Su solicitud ha sido procesada, un asesor de nuestro equipo lo contactará en la brevedad</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>`;
+  
+      document.body.appendChild(modal);
+  };
