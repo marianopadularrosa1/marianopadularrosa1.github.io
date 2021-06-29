@@ -129,7 +129,7 @@ createModal = () => {
             <p>Su solicitud ha sido procesada, un asesor de nuestro equipo lo contactará en la brevedad</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button id="cerrarModalSolicitudProcesada" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>`;

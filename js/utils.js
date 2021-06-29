@@ -77,7 +77,13 @@ updateMontoCuota = (event) => {
   if (document.getElementById("selectCuotas") != null) {
     let sc = JSON.parse(sessionStorage.getItem("solicitudCredito"));
     let idMonto = sc.cuotas.indexOf(parseInt(event.target.value));
+    sc.cuotasElegidas = parseInt(event.target.value);
     document.getElementById("montoCuota").value = sc.montoCuota[idMonto];
+    sc.montoCuotaElegida = sc.montoCuota[idMonto];
+    guardarSession("solicitudCredito", JSON.stringify(sc));
+    guardarSession("cuotasElegidas", sc.cuotasElegidas);
+    guardarSession("montoCuotasElegidas", sc.montoCuotaElegida);
+    console.log(JSON.stringify(sc));
   }
 };
 /* actualiza el valor del producto cuando el user cambia la seleccion del producto */

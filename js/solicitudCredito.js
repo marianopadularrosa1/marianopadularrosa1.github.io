@@ -4,9 +4,10 @@ class SolicitudCredito{
     constructor(montoProducto){
         
         this.cuotas=[];
-        this.cuotasElegidas=0;
+        this.cuotasElegidas="";
         this.montoProducto=parseFloat(montoProducto);
         this.montoCuota=[];
+        this.montoCuotaElegida="";
         this.montoConInteres=0;
         this.topeMaximo = 0;
         this.preAprobado=false;

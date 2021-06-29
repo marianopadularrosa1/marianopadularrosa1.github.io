@@ -1,6 +1,7 @@
 /*Cuando se carga la pagina onload */
 document.addEventListener("DOMContentLoaded", function (event) {
   AOS.init();
+  sessionStorage.clear();
   if ($("#button1").length == 1) {
     $("#button1").click(function () {
       $("html").animate(
@@ -155,33 +156,36 @@ const inputData = () => {
     }
 
     loadSelect("selectCuotas", solicitudCredito.cuotas);
+    
     document.getElementById("montoCuota").value =
       solicitudCredito.montoCuota != null
         ? solicitudCredito.montoCuota[0]
         : "0";
-    document.getElementById("montoConInteres").value =
-      solicitudCredito.montoConInteres;
+    
+    document.getElementById("montoConInteres").value = solicitudCredito.montoConInteres;
     let nombreProducto = document.getElementById("nombreProducto").value;
     solicitudCredito.nombreProducto = nombreProducto;
-    guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
 
+   //Guarda en la session actual el objeto solicitud credito completo
+    guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
     let selectCuotas = document.getElementById("selectCuotas");
     selectCuotas.addEventListener("change", updateMontoCuota);
     let formCuotas = document.getElementById("formCuotas");
 
-    let display = getComputedStyle(formCuotas).display;
-    if (display == "none") {
+    
+    if (getComputedStyle(formCuotas).display == "none") {
       $("#formCuotas").slideDown(2000);
+      
     }
+   
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
-    $("#enviar").on("click", (e) => {
-      e.preventDefault();
-      console.log("selectCoutas: "+$( "#selectCuotas :selected" ).text());
-      solicitudCredito.cuotasElegidas = $( "#selectCuotas :selected" ).text();
-      solicitudCredito.montoCuota = $( "#montoCuota :selected" ).text();
-      solicitudCredito.montoConInteres = document.getElementById("montoConInteres").value;
-      sendForm(solicitudCredito, p);
+    $("#enviar").on("click", (event) => {
+      event.preventDefault();
+      solicitudCredito.cuotasElegidas = document.getElementById("selectCuotas").value;
+      solicitudCredito.montoCuotaElegida = document.getElementById("montoCuota").value;
+      guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
+      sendForm( p);
     });
   } else {
     $("#modalPersonaNoValida").modal("show");
@@ -270,8 +274,10 @@ const createProductos = (arrayOfCards, parentNode) => {
   }
 };
 
-const sendForm = (solicitudCredito, persona) => {
-  //$("#enviar").prop("disabled", true);
+const sendForm = (persona) => {
+  let solicitudCredito = JSON.parse(sessionStorage.getItem("solicitudCredito"));
+  
+  $("#enviar").prop("disabled", true);
   const APIURL =
     "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 
@@ -299,8 +305,10 @@ const sendForm = (solicitudCredito, persona) => {
     mobile: persona.telefono,
     phone: persona.telefono,
     "00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
-    "00N6g00000VAyYv": solicitudCredito.montoCuota
+    "00N6g00000VAyYv": solicitudCredito.montoCuotaElegida
   };
+  let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+  let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
   $.ajax({
     method: "POST",
     url: APIURL,
@@ -310,16 +318,13 @@ const sendForm = (solicitudCredito, persona) => {
       "REQUIRES_AUTH":"1"
     },
     success: function (respuesta) {
-      let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-      let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+     
       $('#modalSolicitudProcesada').modal("show");
-      //window.location.href = htmlDestino;
+      $('#cerrarModalSolicitudProcesada').on('click', window.location.href = htmlDestino)
     },
     error: function(errorThrown) {
-      let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-      let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
       $('#modalSolicitudProcesada').modal("show");
-      //window.location.href = htmlDestino;
+      $('#cerrarModalSolicitudProcesada').on('click',  window.location.href = htmlDestino)
    }
   });
 };
