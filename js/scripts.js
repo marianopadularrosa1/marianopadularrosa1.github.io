@@ -175,16 +175,28 @@ const inputData = () => {
     
     if (getComputedStyle(formCuotas).display == "none") {
       $("#formCuotas").slideDown(2000);
-      
     }
+    let cuotasElegidas = JSON.parse(sessionStorage.getItem("cuotasElegidas"));
+    let montoCuotasElegidas = JSON.parse(sessionStorage.getItem("montoCuotasElegidas"));
+    if(cuotasElegidas==null){
+        cuotasElegidas = solicitudCredito.cuotas[0];
+        guardarSession("cuotasElegidas", solicitudCredito.cuotas[0]);}
+    if(montoCuotasElegidas==null){
+      montoCuotasElegidas = solicitudCredito.montoCuota[0];
+      guardarSession("montoCuotasElegidas", solicitudCredito.montoCuota[0]);}
+    
+    
    
     /*posicionar al form de cuotas */
     $("html").animate({ scrollTop: $("#formCuotas").offset().top }, "slow");
+    //Guarda en la session actual el objeto solicitud credito completo
+    guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
+    //Luego de presionar el boton enviar, se obtendrá la solicitudCredito y persona antes de enviar
     $("#enviar").on("click", (event) => {
       event.preventDefault();
-      solicitudCredito.cuotasElegidas = document.getElementById("selectCuotas").value;
-      solicitudCredito.montoCuotaElegida = document.getElementById("montoCuota").value;
-      guardarSession("solicitudCredito", JSON.stringify(solicitudCredito));
+      event.stopImmediatePropagation();
+      let sc = JSON.parse(sessionStorage.getItem("solicitudCredito"));
+      console.log("sc enviar Mariano:"+JSON.stringify(sc));
       sendForm( p);
     });
   } else {
@@ -276,6 +288,7 @@ const createProductos = (arrayOfCards, parentNode) => {
 
 const sendForm = (persona) => {
   let solicitudCredito = JSON.parse(sessionStorage.getItem("solicitudCredito"));
+  console.log("solicitudCredito a enviar:"+JSON.stringify(solicitudCredito));
   
   $("#enviar").prop("disabled", true);
   const APIURL =
@@ -304,11 +317,12 @@ const sendForm = (persona) => {
     lead_source: "Web",
     mobile: persona.telefono,
     phone: persona.telefono,
-    "00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
-    "00N6g00000VAyYv": solicitudCredito.montoCuotaElegida
+    //"00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
+    "00N6g00000VAyYq": JSON.parse(sessionStorage.getItem("cuotasElegidas")),
+    //"00N6g00000VAyYv": solicitudCredito.montoCuotaElegida,
+    "00N6g00000VAyYv": JSON.parse(sessionStorage.getItem("montoCuotasElegidas"))
   };
-  let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-  let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+  
   $.ajax({
     method: "POST",
     url: APIURL,
@@ -320,11 +334,19 @@ const sendForm = (persona) => {
     success: function (respuesta) {
      
       $('#modalSolicitudProcesada').modal("show");
-      $('#cerrarModalSolicitudProcesada').on('click', window.location.href = htmlDestino)
+      $('#cerrarModalSolicitudProcesada').on('click', ()=>{
+        let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+        let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+        window.location.href = htmlDestino
+      } )
     },
     error: function(errorThrown) {
       $('#modalSolicitudProcesada').modal("show");
-      $('#cerrarModalSolicitudProcesada').on('click',  window.location.href = htmlDestino)
+      $('#cerrarModalSolicitudProcesada').on('click', ()=>{
+        let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+        let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
+        window.location.href = htmlDestino
+      }  )
    }
   });
 };
