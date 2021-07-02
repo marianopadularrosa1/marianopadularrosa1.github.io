@@ -319,10 +319,8 @@ const sendForm = (persona) => {
     lead_source: "Web",
     mobile: persona.telefono,
     phone: persona.telefono,
-    //"00N6g00000VAyYq": solicitudCredito.cuotasElegidas,
-    "00N6g00000VAyYq": JSON.parse(sessionStorage.getItem("cuotasElegidas")),
-    //"00N6g00000VAyYv": solicitudCredito.montoCuotaElegida,
-    "00N6g00000VAyYv": JSON.parse(sessionStorage.getItem("montoCuotasElegidas"))
+    "00N6g00000VAyYq": JSON.parse(sessionStorage.getItem("cuotasElegidas")), //cuotasElegidas por el User
+    "00N6g00000VAyYv": JSON.parse(sessionStorage.getItem("montoCuotasElegidas")) //montoCuota Elegidas por el user
   };
   
   $.ajax({
@@ -332,22 +330,22 @@ const sendForm = (persona) => {
     success: function (respuesta) {
      console.log("respuesta.data:"+respuesta.data);
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
-      $('#cerrarModalSolicitudProcesada').on('click', ()=>{
+      $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
       })
-      $('#cerrarModalSolicitudProcesada2').on('click', ()=>{
+      /*$('#cerrarModalSolicitudProcesada2').on('click', ()=>{
         window.location.href = getHtmlIndex();
-      })
+      })*/
     },
     error: function(error) {
-      console.log("errorThrown:"+error);
+      console.log("errorThrown:"+JSON.stringify(error));
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
-      $('#cerrarModalSolicitudProcesada').on('click', ()=>{
+      $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
       })
-      $('#cerrarModalSolicitudProcesada2').on('click', ()=>{
+      /*$('#cerrarModalSolicitudProcesada2').on('click', ()=>{
         window.location.href = getHtmlIndex();
-      })
+      })*/
    }
   });
 };
