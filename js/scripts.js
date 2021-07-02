@@ -108,7 +108,6 @@ const inputData = () => {
 
   //esta valor sera obtenido despues que el solicitante elija
   let valorProducto = document.getElementById("valorProducto").value;
-  /* Ejecucion - test */
 
   if (
     validarPersona(
@@ -195,9 +194,7 @@ const inputData = () => {
     $("#enviar").on("click", (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
-      let sc = JSON.parse(sessionStorage.getItem("solicitudCredito"));
-      console.log("sc enviar Mariano:"+JSON.stringify(sc));
-      sendForm( p);
+      sendForm(p);
     });
   } else {
     $("#modalPersonaNoValida").modal("show");
@@ -333,9 +330,6 @@ const sendForm = (persona) => {
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
       })
-      /*$('#cerrarModalSolicitudProcesada2').on('click', ()=>{
-        window.location.href = getHtmlIndex();
-      })*/
     },
     error: function(error) {
       console.log("errorThrown:"+JSON.stringify(error));
@@ -343,9 +337,6 @@ const sendForm = (persona) => {
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
       })
-      /*$('#cerrarModalSolicitudProcesada2').on('click', ()=>{
-        window.location.href = getHtmlIndex();
-      })*/
    }
   });
 };

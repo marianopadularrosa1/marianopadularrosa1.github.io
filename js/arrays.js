@@ -2,11 +2,17 @@
 const situacionTributariaJSON = '["seleccione->","empleado","autonomo","monotributista","freelance","jubilado","otro"]';
 const situacionTributariaArray = JSON.parse(situacionTributariaJSON);
 
-const estadoCivilJSON = '["seleccione->", "soltero", "casado", "otro"]';
-const estadoCivilArray = JSON.parse(estadoCivilJSON);
+let estadoCivilArray;
+const estadoCivilJSON = $.getJSON("js/estadoCivil.json", function( json ) {
+    estadoCivilArray = json;
+   });
 
-const tarjetaCreditoJSON = '["seleccione->","visa","mastercard","naranja","cabal","otro"]';
-const tarjetaCreditoArray = JSON.parse(tarjetaCreditoJSON);
+
+let tarjetaCreditoArray;
+const tarjetaCreditoJSON = $.getJSON("js/tarjetaCredito.json", function( json ) {
+    tarjetaCreditoArray = json;
+   });
+
 
 const fieldsArrayForm =[
     { id: 1,  fieldId: "nombre", fieldType: "text" , element:"input",placeholder:"Nombre",innerHTML:"Nombre(*)",class:"form-control-sm form-control",required:"true"},
