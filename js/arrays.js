@@ -1,22 +1,14 @@
-const situacionTributariaArray = [
-    "seleccione->",
-    "empleado",
-    "autonomo",
-    "monotributista",
-    "freelance",
-    "jubilado",
-    "otro",
-  ];
-  const estadoCivilArray = ["seleccione->", "soltero", "casado", "otro"];
-  const tarjetaCreditoArray = [
-    "seleccione->",
-    "visa",
-    "mastercard",
-    "naranja",
-    "cabal",
-    "otro",
-  ];
-const fieldsArrayForm = [
+
+const situacionTributariaJSON = '["seleccione->","empleado","autonomo","monotributista","freelance","jubilado","otro"]';
+const situacionTributariaArray = JSON.parse(situacionTributariaJSON);
+
+const estadoCivilJSON = '["seleccione->", "soltero", "casado", "otro"]';
+const estadoCivilArray = JSON.parse(estadoCivilJSON);
+
+const tarjetaCreditoJSON = '["seleccione->","visa","mastercard","naranja","cabal","otro"]';
+const tarjetaCreditoArray = JSON.parse(tarjetaCreditoJSON);
+
+const fieldsArrayForm =[
     { id: 1,  fieldId: "nombre", fieldType: "text" , element:"input",placeholder:"Nombre",innerHTML:"Nombre(*)",class:"form-control-sm form-control",required:"true"},
     { id: 2,  fieldId: "apellido", fieldType: "text" , element:"input",placeholder:"Apellido",innerHTML:"Apellido(*)",class:"form-control-sm form-control"},
     { id: 3,  fieldId: "dni", fieldType: "text" , element:"input",placeholder:"DNI",innerHTML:"DNI(*)",class:"form-control-sm form-control"},
@@ -34,6 +26,8 @@ const fieldsArrayForm = [
     { id: 15,  fieldId: "nombreProducto", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control",readonly:"true"},
     { id: 16,  fieldId: "elegirFormaPago", fieldType: "submit" , element:"input",placeholder:"",innerHTML:"",class:"btn btn-primary mt-auto", value:"Elegir Forma de Pago", onclick:"inputData()"},
    ];
+
+
 const fieldsArrayElegirFormaPago = [
     { id: 1,  fieldId: "selectCuotas", fieldType: "text" , element:"select",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:""},
     { id: 2,  fieldId: "montoCuota", fieldType: "text" , element:"input",placeholder:"",innerHTML:"",class:"form-control-sm form-control", value:"",readonly:"true"},

@@ -6,7 +6,7 @@ createModal = () => {
     modal.setAttribute("data-bs-backdrop","static");
     modal.setAttribute("data-bs-keyboard","false");
     modal.innerHTML = `<!-- Modal -->
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" aria-hidden="true">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
@@ -121,7 +121,7 @@ createModal = () => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="modalTitle">SmartCredit</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button id="cerrarModalSolicitudProcesada2" type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>

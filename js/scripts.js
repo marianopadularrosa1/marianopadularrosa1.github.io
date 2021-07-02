@@ -285,7 +285,9 @@ const createProductos = (arrayOfCards, parentNode) => {
     parentNode.appendChild(divPpal);
   }
 };
-
+//Metodo que enviará Todos los datos a SALESFORCE
+//Cada id con formato varchar(15) por ejemplo="00N6g00000VAcrR" representa un campo del objeto Lead
+//Salesforce interpretará el POST y creará una instancia del objeto Lead con todos los datos enviados en el POST
 const sendForm = (persona) => {
   let solicitudCredito = JSON.parse(sessionStorage.getItem("solicitudCredito"));
   console.log("solicitudCredito a enviar:"+JSON.stringify(solicitudCredito));
@@ -327,26 +329,30 @@ const sendForm = (persona) => {
     method: "POST",
     url: APIURL,
     data: infoPost,
-    retURL: "https://marianopadularrosa1.github.io/",
-    Headers:{
-      "REQUIRES_AUTH":"1"
-    },
     success: function (respuesta) {
-     
-      $('#modalSolicitudProcesada').modal("show");
+     console.log("respuesta.data:"+respuesta.data);
+      $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('#cerrarModalSolicitudProcesada').on('click', ()=>{
-        let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-        let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
-        window.location.href = htmlDestino
-      } )
+        window.location.href = getHtmlIndex();
+      })
+      $('#cerrarModalSolicitudProcesada2').on('click', ()=>{
+        window.location.href = getHtmlIndex();
+      })
     },
-    error: function(errorThrown) {
-      $('#modalSolicitudProcesada').modal("show");
+    error: function(error) {
+      console.log("errorThrown:"+error);
+      $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('#cerrarModalSolicitudProcesada').on('click', ()=>{
-        let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-        let htmlDestino = document.documentURI.replace(htmlActual,'index.html')
-        window.location.href = htmlDestino
-      }  )
+        window.location.href = getHtmlIndex();
+      })
+      $('#cerrarModalSolicitudProcesada2').on('click', ()=>{
+        window.location.href = getHtmlIndex();
+      })
    }
   });
 };
+
+const getHtmlIndex=()=>{
+  let htmlActual = document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+  return document.documentURI.replace(htmlActual,'index.html');
+}
