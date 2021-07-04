@@ -1,6 +1,6 @@
 {
-    "ingreso_bajo":50000,
-    "ingreso_medio":100000,
-    "ingreso_medio_alto":150000,
-    "ingreso_alto":200000
+    "bajo":50000,
+    "medio":100000,
+    "medio_alto":150000,
+    "alto":200000
 }

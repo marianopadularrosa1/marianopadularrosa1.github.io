@@ -1,3 +1,9 @@
+let ingresosObj;
+const ingresosMensualesJSON = $.getJSON("js/ingresos.json", function(json) {
+            ingresosObj = json;
+        });
+
+
 class Persona{
     constructor(nombre,apellido,direccion,email,telefono,fechaNacimiento,situacionTributaria,antiguedad,estadoCivil,ingresosMensuales,ingresosMensualesPareja,tarjetaCredito,dni){
         this.nombre=nombre;
@@ -46,41 +52,43 @@ class Persona{
     
     getPuntajeSituacionTributaria = (situacionTributaria)=>{
         situacionTributaria=situacionTributaria.toLowerCase();
-        if(situacionTributaria=="autonomo"){ return 3 }
-        else if(situacionTributaria=="empleado"){return 3 }
-        else if(situacionTributaria=="monotributista"){return 2}
-        else if(situacionTributaria=="freelance"){return 1}
+        if(situacionTributaria==situacionTributariaArray[2] 
+            || situacionTributaria==situacionTributariaArray[1]){ return 3 }
+        else if(situacionTributaria==situacionTributariaArray[3]){return 2}
+        else if(situacionTributaria==situacionTributariaArray[4]
+                ||situacionTributaria==situacionTributariaArray[5]){return 1}
         else { return 0}
     }
     
     getPuntajeIngresosMensuales = (ingresosMensuales)=>{
-        if(ingresosMensuales>=50000 && ingresosMensuales<100000){ return 1 }
-        else if(ingresosMensuales>=100000 && ingresosMensuales<150000){return 2 }
-        else if(ingresosMensuales>=150000 && ingresosMensuales<200000){return 3}
-        else if(ingresosMensuales>200000){return 4}
+        
+        if(ingresosMensuales>=ingresosObj['bajo'] && ingresosMensuales<ingresosObj['medio']){ return 1 }
+        else if(ingresosMensuales>=ingresosObj['medio'] && ingresosMensuales<ingresosObj['medio_alto']){return 2 }
+        else if(ingresosMensuales>=ingresosObj['medio_alto'] && ingresosMensuales<ingresosObj['alto']){return 3}
+        else if(ingresosMensuales>ingresosObj['alto']){return 4}
         else { return 0}
     }
     
     getPuntajeEstadoCivil = (estadoCivil)=>{ 
         estadoCivil=estadoCivil.toLowerCase();
-        if(estadoCivil=="soltero"){  return 3 }
-        else if(estadoCivil=="casado"){ return 2  }
+        if(estadoCivil==String(estadoCivilArray[1])){  return 3;  }
+        else if(estadoCivil==String(estadoCivilArray[2])){ return 2  }
         else{return 0}
     }
     
     getPuntajeIngresosPareja =(ingresosMensualesPareja)=>{
-        if(ingresosMensualesPareja>=50000 && ingresosMensualesPareja<100000){ return 1 }
-        else if(ingresosMensualesPareja>=100000 && ingresosMensualesPareja<150000){return 2 }
-        else if(ingresosMensualesPareja>=150000 && ingresosMensualesPareja<200000){return 3}
-        else if(ingresosMensualesPareja>200000){return 4}
+        if(ingresosMensualesPareja>=ingresosObj['bajo'] && ingresosMensualesPareja<ingresosObj['medio']){ return 1 }
+        else if(ingresosMensualesPareja>=ingresosObj['medio'] && ingresosMensualesPareja<ingresosObj['medio_alto']){return 2 }
+        else if(ingresosMensualesPareja>=ingresosObj['medio_alto'] && ingresosMensualesPareja<ingresosObj['alto']){return 3}
+        else if(ingresosMensualesPareja>ingresosObj['alto']){return 4}
         else { return 0}
     
     }
     
     getPuntajeTarjetaCredito = (tarjetaCredito)=>{
         tarjetaCredito=tarjetaCredito.toLowerCase();
-        if(tarjetaCredito=="visa" || tarjetaCredito=="mastercard"){ return 2 }
-        else if(tarjetaCredito=="cabal" || tarjetaCredito=="naranja"){return 1 }
+        if(tarjetaCredito==tarjetaCreditoArray[1] || tarjetaCredito==tarjetaCreditoArray[2]){ return 2 }
+        else if(tarjetaCredito==tarjetaCreditoArray[3] || tarjetaCredito==tarjetaCreditoArray[4]){return 1 }
         else if(tarjetaCredito=="ninguna"){return 0 }
         else {return 0}
     }

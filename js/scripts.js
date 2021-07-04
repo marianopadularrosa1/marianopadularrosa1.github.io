@@ -287,7 +287,6 @@ const createProductos = (arrayOfCards, parentNode) => {
 //Salesforce interpretará el POST y creará una instancia del objeto Lead con todos los datos enviados en el POST
 const sendForm = (persona) => {
   let solicitudCredito = JSON.parse(sessionStorage.getItem("solicitudCredito"));
-  console.log("solicitudCredito a enviar:"+JSON.stringify(solicitudCredito));
   
   $("#enviar").prop("disabled", true);
   const APIURL =

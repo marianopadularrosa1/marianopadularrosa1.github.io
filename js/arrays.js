@@ -1,6 +1,7 @@
-
-const situacionTributariaJSON = '["seleccione->","empleado","autonomo","monotributista","freelance","jubilado","otro"]';
-const situacionTributariaArray = JSON.parse(situacionTributariaJSON);
+let situacionTributariaArray;
+const situacionTributariaJSON = $.getJSON("js/situacionTributaria.json", function(json) {
+    situacionTributariaArray = json;
+   });
 
 let estadoCivilArray;
 const estadoCivilJSON = $.getJSON("js/estadoCivil.json", function(json) {
