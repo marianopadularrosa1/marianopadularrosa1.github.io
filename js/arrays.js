@@ -3,13 +3,13 @@ const situacionTributariaJSON = '["seleccione->","empleado","autonomo","monotrib
 const situacionTributariaArray = JSON.parse(situacionTributariaJSON);
 
 let estadoCivilArray;
-const estadoCivilJSON = $.getJSON("js/estadoCivil.json", function( json ) {
+const estadoCivilJSON = $.getJSON("js/estadoCivil.json", function(json) {
     estadoCivilArray = json;
    });
 
 
 let tarjetaCreditoArray;
-const tarjetaCreditoJSON = $.getJSON("js/tarjetaCredito.json", function( json ) {
+const tarjetaCreditoJSON = $.getJSON("js/tarjetaCredito.json", function(json) {
     tarjetaCreditoArray = json;
    });
 
