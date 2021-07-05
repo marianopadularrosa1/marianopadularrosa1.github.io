@@ -3,22 +3,55 @@ document.addEventListener("DOMContentLoaded", function (event) {
   AOS.init();
   sessionStorage.clear();
   if ($("#button1").length == 1) {
+    document.getElementById("button1").addEventListener('click',mostrarForm);
     $("#button1").click(function () {
-      $("html").animate(
-        {
-          scrollTop: $("#inputForm").offset().top,
-        },
-        "slow"
-      );
+      $("html").animate({scrollTop: $("#inputForm").offset().top},"slow");
     });
   }
+  
   /*inicializacion de productos */
   inicializarProd();
   let myRadios = document.querySelectorAll("[name=radio]");
   myRadios.forEach((input) => {
     input.addEventListener("change", updateValorProducto);
   });
+  
 });
+
+/* Inicializa productos de cada html */
+function inicializarProd() {
+  //obtengo el html actual que navego para crear los productos correspondientes
+  let htmlActual =
+    document.documentURI.split("/")[document.documentURI.split("/").length - 1];
+  if (htmlActual == "smartphone.html") {
+    let productos = document.getElementById("productos");
+    createProductos(arrayOfSmartphones, productos);
+    createFooter();
+    createModal();
+    createModalPersona();
+    createModalMenor();
+    createModalEmail();
+    createModalSolicitudProcesada();
+  } else if (htmlActual == "tecno.html") {
+    let productos = document.getElementById("productos");
+    createProductos(arrayOfTecno, productos);
+    createFooter();
+    createModal();
+    createModalPersona();
+    createModalMenor();
+    createModalEmail();
+    createModalSolicitudProcesada();
+  } else if (htmlActual == "xp.html") {
+    let productos = document.getElementById("productos");
+    createProductos(arrayOfXP, productos);
+    createFooter();
+    createModal();
+    createModalPersona();
+    createModalMenor();
+    createModalEmail();
+    createModalSolicitudProcesada();
+  }
+}
 
 /* Se invoca onclick del boton Solicitar */
 const mostrarForm = () => {
@@ -202,40 +235,7 @@ const inputData = () => {
   }
 };
 
-/* Inicializa productos de cada html */
-function inicializarProd() {
-  //obtengo el html actual que navego para crear los productos correspondientes
-  let htmlActual =
-    document.documentURI.split("/")[document.documentURI.split("/").length - 1];
-  if (htmlActual == "smartphone.html") {
-    let productos = document.getElementById("productos");
-    createProductos(arrayOfSmartphones, productos);
-    createFooter();
-    createModal();
-    createModalPersona();
-    createModalMenor();
-    createModalEmail();
-    createModalSolicitudProcesada();
-  } else if (htmlActual == "tecno.html") {
-    let productos = document.getElementById("productos");
-    createProductos(arrayOfTecno, productos);
-    createFooter();
-    createModal();
-    createModalPersona();
-    createModalMenor();
-    createModalEmail();
-    createModalSolicitudProcesada();
-  } else if (htmlActual == "xp.html") {
-    let productos = document.getElementById("productos");
-    createProductos(arrayOfXP, productos);
-    createFooter();
-    createModal();
-    createModalPersona();
-    createModalMenor();
-    createModalEmail();
-    createModalSolicitudProcesada();
-  }
-}
+
 
 /* crea las cards con cada producto basandose en un array */
 const createProductos = (arrayOfCards, parentNode) => {
@@ -330,6 +330,7 @@ const sendForm = (persona) => {
     url: APIURL,
     data: infoPost,
     success: function (respuesta) {
+      $('#modalSolicitudProcesada #hashSolicitud').val(JSON.parse(sessionStorage.getItem("hashSolicitudCredito")));
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();

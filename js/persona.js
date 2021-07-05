@@ -2,6 +2,10 @@ let ingresosObj;
 const ingresosMensualesJSON = $.getJSON("js/ingresos.json", function(json) {
             ingresosObj = json;
         });
+let edadesObj;
+const edadesJSON = $.getJSON("js/edades.json", function(json) {
+    edadesObj = json;
+        });
 
 
 class Persona{
@@ -37,15 +41,16 @@ class Persona{
     
     getPuntajeEdad = (fechaNacimiento)=>{   
         let edad =  this.getEdad(fechaNacimiento);
-        if(edad >=18 && edad <=50){return 2}
-        else if(edad>50 && edad <=65){return 1}
-        else if(edad<18){return 0; /*no deberia otorgarse el credito por eso se asigna puntaje cero */}
+        if(edad >=edadesObj['edad']['mayorDeEdad'] && edad <=edadesObj['edad']['adulto']){return 2}
+        else if(edad>edadesObj['edad']['adulto'] && edad <=edadesObj['edad']['jubilado']){return 1}
+        else if(edad<edadesObj['edad']['mayorDeEdad']){return 0; /*no deberia otorgarse el credito por eso se asigna puntaje cero */}
         else{return 0}
     }
      getPuntajeAntiguedad = (antiguedad)=>{    
-        if(antiguedad >=2 && antiguedad <=5){return 2}
-        else if(antiguedad>5) {return 3}
-        else if(antiguedad==1){return 1}
+        if(antiguedad >=edadesObj['antiguedad']['media']['min'] 
+            && antiguedad <=edadesObj['antiguedad']['media']['max']){return 2}
+        else if(antiguedad>edadesObj['antiguedad']['alta']['min'] ) {return 3}
+        else if(antiguedad==edadesObj['antiguedad']['baja']['max']){return 1}
         else{return 0}
     }
     

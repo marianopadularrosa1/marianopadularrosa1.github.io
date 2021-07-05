@@ -1,0 +1,21 @@
+{
+    "edad":{
+        "mayorDeEdad":18,
+        "adulto":50,
+        "jubilado":65
+    },
+    "antiguedad":{
+        "baja":{
+            "min":0,
+            "max":1
+        },
+        "media":{
+            "min":2,
+            "max":5
+        },
+        "alta":{
+            "min":5,
+            "max":99
+        }
+    }
+}
