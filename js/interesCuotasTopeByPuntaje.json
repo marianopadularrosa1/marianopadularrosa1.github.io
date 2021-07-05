@@ -1,0 +1,42 @@
+{
+    "bajo":{
+        "cuotas":[3,6],
+        "interes": 40,
+        "topeMaximo":50000
+    },
+    "medio":{
+        "cuotas":[3,6,9],
+        "interes": 35,
+        "topeMaximo":80000
+    },
+    "medio_alto":{
+        "cuotas":[3,6,9,12],
+        "interes": 33,
+        "topeMaximo":100000
+    },
+    "alto":{
+        "cuotas":[3,6,9,12],
+        "interes": 30,
+        "topeMaximo":150000
+    },
+    "escala":{
+        "bajo":{
+            "min":0,
+            "max":5
+        },
+        "medio":{
+            "min":5,
+            "max":9
+        },
+        "medio_alto":{
+            "min":9,
+            "max":12
+        },
+        "alto":{
+            "min":12,
+            "max":99
+        }
+    }
+
+
+}

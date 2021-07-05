@@ -324,14 +324,12 @@ const sendForm = (persona) => {
     url: APIURL,
     data: infoPost,
     success: function (respuesta) {
-     console.log("respuesta.data:"+respuesta.data);
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
       })
     },
     error: function(error) {
-      console.log("errorThrown:"+JSON.stringify(error));
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();

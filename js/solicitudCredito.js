@@ -1,5 +1,9 @@
-/*Clases */
-
+/*settings para otorgar creditos segun el puntaje */
+let creditSettingsByScore;
+const creditSettingsByScoreJSON = $.getJSON("js/interesCuotasTopeByPuntaje.json", function(json) {
+    creditSettingsByScore = json;
+        });
+//clase de Solicitud del credito
 class SolicitudCredito{
     constructor(montoProducto){
         
@@ -13,11 +17,20 @@ class SolicitudCredito{
         this.preAprobado=false;
         this.producto="";
     }
+    //segun el puntaje se invocará setInteresCuotasTopeByPuntaje las caracteristicas configuradas en el archivo JSON
     getAnalisisPuntaje =  (puntaje)=>{
-        if(puntaje<=5 && puntaje>0){this.setInteresCuotasTopeByPuntaje(40,[3,6],50000)}
-        if(puntaje<=9 && puntaje>5){this.setInteresCuotasTopeByPuntaje(35,[3,6,9],80000)}
-        if(puntaje<=12 && puntaje>9){this.setInteresCuotasTopeByPuntaje(33,[3,6,9,12],100000)}
-        if(puntaje<=15 && puntaje>12){this.setInteresCuotasTopeByPuntaje(30,[3,6,9,12],150000)}
+        if(puntaje>creditSettingsByScore['escala']['bajo']['min'] 
+        && puntaje<=creditSettingsByScore['escala']['bajo']['max']){
+            this.setInteresCuotasTopeByPuntaje(creditSettingsByScore['bajo']['interes'],creditSettingsByScore['bajo']['cuotas'],creditSettingsByScore['bajo']['topeMaximo'])}
+        else if(puntaje>creditSettingsByScore['escala']['medio']['min'] 
+                && puntaje<=creditSettingsByScore['escala']['medio']['max']){
+                    this.setInteresCuotasTopeByPuntaje(creditSettingsByScore['medio']['interes'],creditSettingsByScore['medio']['cuotas'],creditSettingsByScore['medio']['topeMaximo'])}
+        else if(puntaje>creditSettingsByScore['escala']['medio_alto']['min'] 
+            && puntaje<=creditSettingsByScore['escala']['medio_alto']['max']){
+                this.setInteresCuotasTopeByPuntaje(creditSettingsByScore['medio_alto']['interes'],creditSettingsByScore['medio_alto']['cuotas'],creditSettingsByScore['medio_alto']['topeMaximo'])}
+        else if(puntaje>creditSettingsByScore['escala']['alto']['min'] 
+            && puntaje<=creditSettingsByScore['escala']['alto']['max']){
+                this.setInteresCuotasTopeByPuntaje(creditSettingsByScore['alto']['interes'],creditSettingsByScore['alto']['cuotas'],creditSettingsByScore['alto']['topeMaximo'])}
     }
     setInteresCuotasTopeByPuntaje=(interes,cuotas,topeMaximo)=>{
         this.interes=parseFloat(interes);
