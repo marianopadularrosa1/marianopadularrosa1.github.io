@@ -116,6 +116,7 @@ createModal = () => {
     modal.setAttribute("role", "dialog");
     modal.setAttribute("data-bs-backdrop","static");
     modal.setAttribute("data-bs-keyboard","false");
+    let hashSolicitud = JSON.parse(sessionStorage.getItem("hashSolicitudCredito"));
     modal.innerHTML = `<!-- Modal -->
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -126,7 +127,9 @@ createModal = () => {
               </button>
             </div>
             <div class="modal-body">
-            <p>Su solicitud ha sido procesada, un asesor de nuestro equipo lo contactará en la brevedad</p>
+            <p>Su solicitud ha sido procesada, un asesor de nuestro equipo lo contactará en la brevedad. </p>
+            <p>Nro Solicitud:</p>
+            <input type="text" name="hashSolicitud" id="hashSolicitud" value="" readonly/>
             </div>
             <div class="modal-footer">
               <button id="cerrarModalSolicitudProcesada" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

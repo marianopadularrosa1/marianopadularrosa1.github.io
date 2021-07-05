@@ -4,6 +4,9 @@ capitalize = (string) => {
   const guardarSession = (clave, valor) => {
     sessionStorage.setItem(clave, valor);
   };
+  const guardarLocalStorage = (clave, valor) => {
+    localStorage.setItem(clave, valor);
+  };
   const getValorCuota = (valorProducto, cantCuotas) => valorProducto / cantCuotas;
   /**Carga valores para select */
 const loadSelect = (elementId, arrayOfData) => {

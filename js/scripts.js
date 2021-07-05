@@ -194,6 +194,7 @@ const inputData = () => {
     $("#enviar").on("click", (event) => {
       event.preventDefault();
       event.stopImmediatePropagation();
+      guardarSession("hashSolicitudCredito", p.email.hashCode());
       sendForm(p);
     });
   } else {
@@ -292,6 +293,9 @@ const sendForm = (persona) => {
   const APIURL =
     "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8";
 
+  
+    
+
   const infoPost = {
     "00N6g00000VAcrR": persona.puntajeTotal, //scoring
     oid: "00D6g000006uh5n", //Objeto Lead
@@ -316,7 +320,9 @@ const sendForm = (persona) => {
     mobile: persona.telefono,
     phone: persona.telefono,
     "00N6g00000VAyYq": JSON.parse(sessionStorage.getItem("cuotasElegidas")), //cuotasElegidas por el User
-    "00N6g00000VAyYv": JSON.parse(sessionStorage.getItem("montoCuotasElegidas")) //montoCuota Elegidas por el user
+    "00N6g00000VAyYv": JSON.parse(sessionStorage.getItem("montoCuotasElegidas")), //montoCuota Elegidas por el user
+    "00N6g00000VB0vr": JSON.parse(sessionStorage.getItem("hashSolicitudCredito")),  //idSmartCredit:
+    "00N6g00000VB0vw": persona.dni.toString().hashCode()//hashSmartCredit:<textarea  
   };
   
   $.ajax({
@@ -330,6 +336,7 @@ const sendForm = (persona) => {
       })
     },
     error: function(error) {
+      $('#modalSolicitudProcesada #hashSolicitud').val(JSON.parse(sessionStorage.getItem("hashSolicitudCredito")));
       $('#modalSolicitudProcesada').modal({backdrop: 'static', keyboard: false});
       $('button').on('click', ()=>{
         window.location.href = getHtmlIndex();
