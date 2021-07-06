@@ -63,14 +63,15 @@ const validarPersona=(nombre,apellido,direccion,email,telefono,fechaNac,situacio
       $('#inputForm>div').children(".form-control").css('border-color','green');
       $('#inputForm>div').children(".form-control").prop("readonly", true);
       $('#inputForm>div').children(':input[type="submit"]').prop('disabled', true);
-      $('#button1').prop('disabled', true);
+      
       $('#inputForm>div').children().each(function() {
-        if($(this).val()!="" && $(this).val()!="seleccione->"){
+        if($(this).val()!="" && $(this).val()!="seleccione->" && document.getElementById("button1").disabled == false){
           let div = document.createElement("div");
           div.innerHTML = `<i class="bi bi-check2"></i>`;
           $(this).parent().append(div);
         }
       })
+      $('#button1').prop('disabled', true);
       $('#inputForm>div>select').attr("disabled", true);
       $('input[name=radio]').attr("disabled",true);
       
